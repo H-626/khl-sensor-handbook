@@ -957,6 +957,10 @@ function checkAccess() {
 
   btn.addEventListener("click", tryEnter);
   input.addEventListener("keydown", (e) => { if (e.key === "Enter") tryEnter(); });
+  document.getElementById("gate-toggle").addEventListener("click", () => {
+    const showing = input.type === "text";
+    input.type = showing ? "password" : "text";
+  });
   input.focus();
 }
 
