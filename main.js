@@ -925,14 +925,18 @@ function checkAccess() {
   const err = document.getElementById("gate-error");
   const btn = document.getElementById("gate-btn");
 
-  const fail = () => {
-    err.textContent = "密码错误，请重试 / Incorrect password, try again";
+  const fail = (msg) => {
+    err.textContent = msg || "密码错误，请重试 / Incorrect password, try again";
     err.classList.remove("hidden");
   };
 
   const tryEnter = async () => {
     const pw = input.value;
     if (!pw) { fail(); return; }
+    if (!window.crypto || !window.crypto.subtle) {
+      fail("当前环境不支持网页加密，请通过 https 网址或 localhost 访问，不要直接双击 index.html 文件。 / Encryption is not available here; open the site via its https link or localhost instead of double-clicking the file.");
+      return;
+    }
     try {
       const key = await deriveKey(pw);
       const ok = await decryptText(key, CHECK_ENC);
@@ -946,6 +950,7 @@ function checkAccess() {
         fail();
       }
     } catch (e) {
+      console.error("access check failed", e);
       fail();
     }
   };
