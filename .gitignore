@@ -1,0 +1,8 @@
+# 明文内容仅保存在本地，不发布到 GitHub
+KHL-Sensor.md
+KHL-Sensor-en.md
+sensors.json
+
+# 本地加密工具与参数，不发布
+encrypt.mjs
+crypto-params.json
