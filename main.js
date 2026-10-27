@@ -898,7 +898,7 @@ async function deriveKey(pw) {
     { name: "PBKDF2", salt: b64ToBuf(SALT_B64), iterations: 250000, hash: "SHA-256" },
     material,
     { name: "AES-GCM", length: 256 },
-    false,
+    true,
     ["encrypt", "decrypt"]
   );
 }
