@@ -951,7 +951,8 @@ function checkAccess() {
       }
     } catch (e) {
       console.error("access check failed", e);
-      fail();
+      const detail = e && e.message ? (e.name ? e.name + ": " + e.message : e.message) : String(e);
+      fail("登录失败，请把这段技术信息发给我 / Failed — please send me this detail: " + detail);
     }
   };
 
