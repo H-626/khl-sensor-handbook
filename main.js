@@ -177,8 +177,8 @@ let ZH = null, EN = null, SENSORS = null, TOC = null, HEADING_MAP = null, PRODUC
 let lang = "zh";
 let currentView = "home";
 let currentPid = null;
-const SALT_B64 = "/v62Hwcm59BjapLR+rtuZg==";
-const CHECK_ENC = { v: 1, iv: "+TAWhE8qxSJ+HBl5", data: "Uy6YcwzrD6U7/ygyuBRliS8SnYupLA==" };
+const SALT_B64 = "ZrD1TT1BG/be54Qyk0kDPQ==";
+const CHECK_ENC = { v: 1, iv: "oB67pHaSWyjkkcyL", data: "lkKps/GnnTOwV9aGML65ILc8ScK3Iw==" };
 let CRYPTO_KEY = null;
 
 
