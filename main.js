@@ -473,7 +473,7 @@ function buyUrlFor(mo) {
   const nm = (mo.nameEn && mo.nameEn !== mo.name) ? mo.nameEn : mo.name;
   const q = encodeURIComponent(nm);
   if (mo.price && mo.price.startsWith("£")) return "https://www.amazon.co.uk/s?k=" + q;
-  if (mo.price && mo.price.startsWith("¥")) return "https://s.taobao.com/search?q=" + q;
+  if (mo.price && mo.price.startsWith("¥")) return "https://world.taobao.com/search/search.htm?_input_charset=utf-8&q=" + q;
   return "https://www.google.com/search?q=" + q;
 }
 
