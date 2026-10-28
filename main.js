@@ -174,7 +174,9 @@ function buildOccurrences(refs) {
 /* ================= state & i18n ================= */
 
 let ZH = null, EN = null, SENSORS = null, TOC = null, HEADING_MAP = null, PRODUCTS = [];
-const APP_MODE = document.body.dataset.mode || "github";
+const APP_MODE = (window.FIREBASE_MODE === "local" || document.body.dataset.mode === "local")
+  ? "local"
+  : (window.FIREBASE_CONFIG ? "cloud" : "github");
 const APP_LANG = document.body.dataset.lang || "zh";
 let lang = APP_LANG;
 let currentView = "home";
@@ -878,11 +880,22 @@ const GUIDE = [
 
 function renderGuide() {
   const el = document.getElementById("guide-content");
-  const items = APP_MODE === "local" ? GUIDE : GUIDE.concat([{
+  let items = GUIDE;
+  if (APP_MODE === "local") {
+    items = items;
+  } else if (APP_MODE === "cloud") {
+    items = items.filter((g) => g.zh !== "本地分享").concat([{
+      zh: "云端访问与分享", en: "Cloud & Teams",
+      zhBody: "网页托管在 GitHub Pages，永久在线，打开链接即可阅读，无需密码。把网站链接直接发到 Teams 即可。",
+      enBody: "The site is hosted on GitHub Pages and is always online. Open the link to read it — no password needed. Just share the link in Teams."
+    }]);
+  } else {
+    items = items.filter((g) => g.zh !== "本地分享").concat([{
     zh: "访问与密码", en: "Access & password",
     zhBody: "进入网站需输入管理员设定的密码；同一浏览器会话内无需重复输入。",
     enBody: "The site requires a password set by the administrator; you will not be asked again within the same browser session."
-  }]);
+    }]);
+  }
   el.innerHTML = items.map((g, i) =>
     `<div class="guide-item"><div class="guide-num">${i + 1}</div><div><h3>${esc(bi(g.zh, g.en))}</h3><p>${esc(bi(g.zhBody, g.enBody))}</p></div></div>`
   ).join("");
@@ -1064,6 +1077,8 @@ document.querySelectorAll(".lang-switch button").forEach((btn) => {
 
 async function boot() {
   try {
+    const gate = document.getElementById("access-gate");
+    if (gate && APP_MODE === "local") gate.classList.add("hidden");
     let zhText, enText, sensors;
     if (APP_MODE === "local") {
       const [zhResp, enResp, sensorsResp] = await Promise.all([
@@ -1074,6 +1089,14 @@ async function boot() {
       zhText = zhResp;
       enText = enResp;
       sensors = sensorsResp;
+    } else if (APP_MODE === "cloud") {
+      const [zhResp, enResp] = await Promise.all([
+        fetch("KHL-Sensor.md").then((r) => { if (!r.ok) throw new Error(r.status); return r.text(); }),
+        fetch("KHL-Sensor-en.md").then((r) => { if (!r.ok) throw new Error(r.status); return r.text(); })
+      ]);
+      zhText = zhResp;
+      enText = enResp;
+      sensors = await loadCloudSensors();
     } else {
       if (!CRYPTO_KEY) {
         const saved = sessionStorage.getItem("khl_key");
@@ -1117,7 +1140,25 @@ async function boot() {
   }
 }
 
-if (APP_MODE === "local") {
+async function loadCloudSensors() {
+  const cfg = window.FIREBASE_CONFIG;
+  if (!cfg || !cfg.databaseURL) {
+    return fetch("sensors.json").then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); });
+  }
+  const url = cfg.databaseURL.replace(/\/+$/, "") + "/sensors.json";
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("sensors fetch " + res.status);
+  const data = await res.json();
+  if (data == null) {
+    return fetch("sensors.json").then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); });
+  }
+  return data;
+}
+
+const adminLink = document.querySelector(".admin-link");
+if (adminLink) adminLink.setAttribute("href", APP_MODE === "cloud" ? "admin-cloud.html" : "admin.html");
+
+if (APP_MODE === "local" || APP_MODE === "cloud") {
   boot();
 } else {
   const savedKey = sessionStorage.getItem("khl_key");

@@ -1,0 +1,647 @@
+{
+  "scenarios": [
+    { "id": "tank", "zh": "水池试验", "en": "Tank test" },
+    { "id": "field", "zh": "现场海试", "en": "Field sea trial" },
+    { "id": "monitor", "zh": "长期监测", "en": "Long-term monitoring" }
+  ],
+  "quantities": [
+    {
+      "id": "wave",
+      "zh": "波面高程",
+      "en": "Free-surface elevation",
+      "noteZh": "关注波高、周期、谱、反射系数与破碎波。",
+      "noteEn": "Focus on wave height, period, spectra, reflection, and breaking.",
+      "principles": [
+        {
+          "zh": "超声（声学）", "en": "Ultrasonic (acoustic)", "scenarios": ["tank"],
+          "descZh": "非接触发射声脉冲，由水面回波往返时间换算水位。", "descEn": "Non-contact: converts water level from the round-trip time of a sound pulse reflected by the surface.",
+          "models": [
+            { "name": "Fafeicy 超声水位传感器", "nameEn": "Fafeicy ultrasonic water-level sensor", "spec": "0–8 m, 盲区 0–20 cm, ±2 mm, 4–20 mA", "specEn": "0–8 m, blind zone 0–20 cm, ±2 mm, 4–20 mA", "price": "£32.98", "tier": "工业件", "tierEn": "Industrial component" },
+            { "name": "Fabater 超声波液位传感器", "nameEn": "Fabater ultrasonic level sensor", "spec": "4–20 mA 输出", "specEn": "4–20 mA output", "price": "£114.64", "tier": "工业件", "tierEn": "Industrial component" }
+          ],
+          "kit": [ { "zh": "超声水位传感器", "en": "Ultrasonic water-level sensor" }, { "zh": "4–20 mA 采集通道", "en": "4–20 mA acquisition channel" } ]
+        },
+        {
+          "zh": "压力反演", "en": "Pressure inversion", "scenarios": ["field", "monitor"],
+          "descZh": "水下压力传感器按波高传递关系反演波面。", "descEn": "Inverts the free surface from underwater pressure via the wave transfer relation.",
+          "models": [
+            { "name": "TL-136 投入式液位变送器", "nameEn": "TL-136 submersible level transmitter", "spec": "12–32 VDC, 4–20 mA, 2 m 量程", "specEn": "12–32 VDC, 4–20 mA, 2 m range", "price": "£19.82", "tier": "工业件", "tierEn": "Industrial component" },
+            { "name": "Fafeicy 液位变送器", "nameEn": "Fafeicy level transmitter", "spec": "0–5 m, 4–20 mA, 304 不锈钢", "specEn": "0–5 m, 4–20 mA, 304 stainless steel", "price": "£33.60", "tier": "工业件", "tierEn": "Industrial component" }
+          ],
+          "kit": [ { "zh": "投入式压力传感器", "en": "Submersible pressure sensor" }, { "zh": "采集与波浪反演软件", "en": "Acquisition and wave-inversion software" } ]
+        },
+        {
+          "zh": "电阻/电容式浪高仪", "en": "Resistive/capacitive wave probe", "scenarios": ["tank"],
+          "descZh": "接触式探头输出随浸没长度变化，标定后给出波面。", "descEn": "Contact probes whose output varies with immersion length, calibrated to give surface elevation.",
+          "models": [
+            { "name": "高精度智能数字浪高仪", "nameEn": "High-precision digital wave probe", "spec": "直连上位机", "specEn": "Direct connection to host computer", "price": "¥3800", "tier": "实验室级", "tierEn": "Laboratory grade" },
+            { "name": "数字波高仪", "nameEn": "Digital wave-height gauge", "spec": "造波与实验水池波浪测量", "specEn": "For wave generation and laboratory tanks", "price": "¥150", "tier": "实验室级", "tierEn": "Laboratory grade" },
+            { "name": "智能数字浪高仪", "nameEn": "Intelligent digital wave probe", "spec": "RS485 组网", "specEn": "RS485 networking", "price": "¥185", "tier": "工业件", "tierEn": "Industrial component" }
+          ],
+          "kit": [ { "zh": "浪高仪", "en": "Wave probe" }, { "zh": "标定与采集通道", "en": "Calibration and acquisition channel" } ]
+        }
+      ]
+    },
+    {
+      "id": "force",
+      "zh": "力与力矩",
+      "en": "Force and moment",
+      "noteZh": "按恒载+峰值活载确定量程，力矩需写明参考点。",
+      "noteEn": "Size the range by dead load plus peak live load; state the moment reference point.",
+      "principles": [
+        {
+          "zh": "应变式测力元件", "en": "Strain-gauge load cell", "scenarios": ["tank", "field"],
+          "descZh": "弹性元件受载产生应变，桥路输出与力近似线性。", "descEn": "Elastic element strains under load; bridge output is near-linear with force.",
+          "models": [
+            { "name": "S-Type Load Cell 10KG", "nameEn": "S-Type Load Cell 10KG", "spec": "工业称重与拉压力模块", "specEn": "Industrial weighing and tension/compression module", "price": "£22.99", "tier": "工业件", "tierEn": "Industrial component" },
+            { "name": "Accuracy Beam 50 kg–10 t", "nameEn": "Accuracy Beam 50 kg–10 t", "spec": "压缩、拉伸与剪切", "specEn": "Compression, tension, and shear", "price": "£128.99", "tier": "工业件", "tierEn": "Industrial component" }
+          ],
+          "kit": [ { "zh": "测力传感器", "en": "Load cell" }, { "zh": "桥路放大器/变送器", "en": "Bridge amplifier/transmitter" }, { "zh": "桥路采集通道", "en": "Bridge acquisition channel" } ]
+        },
+        {
+          "zh": "六分量测力天平", "en": "Six-component force balance", "scenarios": ["tank"],
+          "descZh": "三正交轴同时测全部力与力矩，经解耦矩阵分离。", "descEn": "Measures all force/moment components on three axes, separated via a decoupling matrix.",
+          "models": [
+            { "name": "Six-dimensional Force Sensor FC6D45", "nameEn": "Six-dimensional Force Sensor FC6D45", "spec": "力与力矩六分量", "specEn": "Six components of force and moment", "price": "£355.59", "tier": "工业件", "tierEn": "Industrial component" },
+            { "name": "6-Axis Force Torque Sensor (0–20 kg)", "nameEn": "6-Axis Force Torque Sensor (0–20 kg)", "spec": "六轴力与力矩", "specEn": "Six-axis force and moment", "price": "£562.99", "tier": "工业件", "tierEn": "Industrial component" }
+          ],
+          "kit": [ { "zh": "六分量天平", "en": "Six-component balance" }, { "zh": "多通道桥路采集", "en": "Multi-channel bridge acquisition" }, { "zh": "解耦矩阵标定", "en": "Decoupling-matrix calibration" } ]
+        },
+        {
+          "zh": "测力卸扣", "en": "Load shackle", "scenarios": ["field"],
+          "descZh": "卸扣本体贴片测张力，可直接替换现有卸扣。", "descEn": "Strain-gauged shackle that measures tension and replaces an existing shackle.",
+          "models": [
+            { "name": "3T/5T/10T Bluetooth Dynamometer", "nameEn": "3T/5T/10T Bluetooth Dynamometer", "spec": "蓝牙输出，吊装称重", "specEn": "Bluetooth output, lifting weighing", "price": "£440.00", "tier": "整机", "tierEn": "Complete instrument" },
+            { "name": "Flate Ring Tension Load Cell with Shackle", "nameEn": "Flate Ring Tension Load Cell with Shackle", "spec": "含卸扣的张力元件", "specEn": "Tension element with shackle", "price": "£656.68", "tier": "工业件", "tierEn": "Industrial component" }
+          ],
+          "kit": [ { "zh": "测力卸扣", "en": "Load shackle" }, { "zh": "显示/数采", "en": "Display/data acquisition" } ]
+        }
+      ]
+    },
+    {
+      "id": "pressure",
+      "zh": "压力",
+      "en": "Pressure",
+      "noteZh": "静压与动压量程要覆盖二者之和；高频冲击测峰值需 kHz 采样。",
+      "noteEn": "Range must cover static plus dynamic pressure; kHz sampling for impact peaks.",
+      "principles": [
+        {
+          "zh": "压阻式", "en": "Piezoresistive", "scenarios": ["tank", "field"],
+          "descZh": "硅压敏电阻受压变阻，能保留直流静压分量。", "descEn": "Silicon piezoresistors change resistance under pressure and retain the DC static component.",
+          "models": [
+            { "name": "1/8″ NPT 不锈钢压力变送器", "nameEn": "1/8″ NPT stainless-steel pressure transmitter", "spec": "4–20 mA 输出", "specEn": "4–20 mA output", "price": "£14.78", "tier": "工业件", "tierEn": "Industrial component" },
+            { "name": "PCM350 平膜压力变送器", "nameEn": "PCM350 flat-diaphragm pressure transmitter", "spec": "扩散硅；0.5%FS / 0.2%FS", "specEn": "Diffused silicon; 0.5%FS / 0.2%FS", "price": "¥210", "tier": "工业件", "tierEn": "Industrial component" }
+          ],
+          "kit": [ { "zh": "压力变送器", "en": "Pressure transmitter" }, { "zh": "4–20 mA 采集通道", "en": "4–20 mA acquisition channel" } ]
+        },
+        {
+          "zh": "压电式（动态）", "en": "Piezoelectric (dynamic)", "scenarios": ["tank"],
+          "descZh": "压电晶体受压产电荷，适合冲击与瞬态压力。", "descEn": "Piezoelectric crystal produces charge; suited to impact and transient pressure.",
+          "models": [
+            { "name": "PCB 113B26 (ICP)", "nameEn": "PCB 113B26 (ICP)", "spec": "500 psi, 10 mV/psi, ≥500 kHz", "specEn": "500 psi, 10 mV/psi, ≥500 kHz", "price": "须询价", "tier": "实验级", "tierEn": "Laboratory grade" },
+            { "name": "XYY1001 (IEPE/PE)", "nameEn": "XYY1001 (IEPE/PE)", "spec": "表面壁压、爆炸压力", "specEn": "Surface wall pressure, blast pressure", "price": "¥1100", "tier": "工业件", "tierEn": "Industrial component" }
+          ],
+          "kit": [ { "zh": "动态压力传感器", "en": "Dynamic pressure sensor" }, { "zh": "恒流源/电荷放大器", "en": "Constant-current source/charge amplifier" }, { "zh": "高速采集通道", "en": "High-speed acquisition channel" } ]
+        },
+        {
+          "zh": "石英谐振式（绝对压力）", "en": "Quartz resonant (absolute)", "scenarios": ["field", "monitor"],
+          "descZh": "石英谐振频率随压力变化，长期漂移极低。", "descEn": "Quartz resonant frequency varies with pressure; very low long-term drift.",
+          "models": [
+            { "name": "井下石英谐振压力传感器", "nameEn": "Downhole quartz resonant pressure sensor", "spec": "高精度、高稳定性", "specEn": "High accuracy, high stability", "price": "¥1990", "tier": "工业件", "tierEn": "Industrial component" },
+            { "name": "PAROSCIENTIFIC 245A-204", "nameEn": "PAROSCIENTIFIC 245A-204", "spec": "高精度石英谐振", "specEn": "High-accuracy quartz resonant", "price": "¥2098–2188（议价）", "tier": "二手/维修件", "tierEn": "Second-hand/repair" }
+          ],
+          "kit": [ { "zh": "石英压力传感器", "en": "Quartz pressure sensor" }, { "zh": "频率/数字采集", "en": "Frequency/digital acquisition" } ]
+        }
+      ]
+    },
+    {
+      "id": "velocity",
+      "zh": "流速与湍流",
+      "en": "Flow velocity and turbulence",
+      "noteZh": "点测量用 ADV，剖面用 ADCP，全场用 PIV；含沙水体用电磁。",
+      "noteEn": "ADV for points, ADCP for profiles, PIV for fields; electromagnetic for sediment-laden water.",
+      "principles": [
+        {
+          "zh": "声学多普勒点流速 (ADV)", "en": "Acoustic Doppler velocimetry (ADV)", "scenarios": ["tank"],
+          "descZh": "声脉冲多普勒频移解算三维瞬时流速。", "descEn": "Three-dimensional instantaneous velocity from the Doppler shift of acoustic pulses.",
+          "models": [ { "name": "Nortek ADV", "nameEn": "Nortek ADV", "spec": "±0.5% ±1 mm/s；采样体积 15×8 mm", "specEn": "±0.5% ±1 mm/s; sampling volume 15×8 mm", "price": "须询价", "tier": "实验级", "tierEn": "Laboratory grade" } ],
+          "kit": [ { "zh": "ADV 探头", "en": "ADV probe" }, { "zh": "采集与去尖峰软件", "en": "Acquisition and despiking software" } ]
+        },
+        {
+          "zh": "声学多普勒剖面 (ADCP)", "en": "Acoustic Doppler current profiler (ADCP)", "scenarios": ["field", "monitor"],
+          "descZh": "按回波到达时间分距离门，给出逐层流速剖面。", "descEn": "Slices echoes into range bins to give a layer-by-layer velocity profile.",
+          "models": [ { "name": "Teledyne RDI Workhorse II Sentinel", "nameEn": "Teledyne RDI Workhorse II Sentinel", "spec": "300/600/1200 kHz；±0.3–1.0%", "specEn": "300/600/1200 kHz; ±0.3–1.0%", "price": "须询价", "tier": "实验级", "tierEn": "Laboratory grade" } ],
+          "kit": [ { "zh": "ADCP 仪器", "en": "ADCP instrument" }, { "zh": "布放支架与电池", "en": "Mounting frame and battery" } ]
+        },
+        {
+          "zh": "粒子图像测速 (PIV)", "en": "Particle image velocimetry (PIV)", "scenarios": ["tank"],
+          "descZh": "示踪粒子图像对位移除以时间间隔得全场速度。", "descEn": "Full-field velocity from tracer-particle image-pair displacement over a time interval.",
+          "models": [ { "name": "LaVision FlowMaster", "nameEn": "LaVision FlowMaster", "spec": "全场速度场", "specEn": "Full-field velocity field", "price": "须询价", "tier": "实验级", "tierEn": "Laboratory grade" } ],
+          "kit": [ { "zh": "相机与激光照明", "en": "Camera and laser illumination" }, { "zh": "示踪粒子", "en": "Tracer particles" }, { "zh": "PIV 处理软件", "en": "PIV processing software" } ]
+        },
+        {
+          "zh": "电磁流速", "en": "Electromagnetic velocimetry", "scenarios": ["field"],
+          "descZh": "导电水在磁场中感应电动势换算流速。", "descEn": "Induced EMF of conductive water in a magnetic field gives velocity.",
+          "models": [ { "name": "电磁流量计 DN10–DN100", "nameEn": "Electromagnetic flowmeter DN10–DN100", "spec": "0–30 m³/h, 4–20 mA", "specEn": "0–30 m³/h, 4–20 mA", "price": "£335.16", "tier": "工业件", "tierEn": "Industrial component" } ],
+          "kit": [ { "zh": "电磁流量计", "en": "Electromagnetic flowmeter" }, { "zh": "4–20 mA 采集", "en": "4–20 mA acquisition" } ]
+        }
+      ]
+    },
+    {
+      "id": "displacement",
+      "zh": "位移与间隙",
+      "en": "Displacement and gap",
+      "noteZh": "微米级精度对应毫米级量程；水中激光需做折射修正。",
+      "noteEn": "µm-level accuracy pairs with mm-level range; correct refraction for in-water laser.",
+      "principles": [
+        {
+          "zh": "激光三角位移", "en": "Laser triangulation", "scenarios": ["tank"],
+          "descZh": "光斑位置随距离变化，三角关系换算位移。", "descEn": "Spot position varies with distance; displacement from triangulation.",
+          "models": [
+            { "name": "CMOS 激光位移传感器", "nameEn": "CMOS laser displacement sensor", "spec": "50/100/200/400 mm；NPN+0–10.5 V", "specEn": "50/100/200/400 mm; NPN + 0–10.5 V", "price": "£227.86", "tier": "工业件", "tierEn": "Industrial component" },
+            { "name": "FSD25-100-AR", "nameEn": "FSD25-100-AR", "spec": "0.01 mm；0–10 V", "specEn": "0.01 mm; 0–10 V", "price": "£600.70", "tier": "工业件", "tierEn": "Industrial component" }
+          ],
+          "kit": [ { "zh": "激光位移传感器", "en": "Laser displacement sensor" }, { "zh": "模拟/数字采集", "en": "Analogue/digital acquisition" } ]
+        },
+        {
+          "zh": "线性可变差动变压器 (LVDT)", "en": "LVDT", "scenarios": ["tank", "field", "monitor"],
+          "descZh": "铁芯位移改变差动电压，线性度高。", "descEn": "Core displacement changes the differential voltage; high linearity.",
+          "models": [
+            { "name": "KPC35 回弹式位移传感器", "nameEn": "KPC35 spring-return displacement sensor", "spec": "50–175 mm 量程可选", "specEn": "50–175 mm selectable", "price": "£69.75", "tier": "工业件", "tierEn": "Industrial component" },
+            { "name": "LVDTC20", "nameEn": "LVDTC20", "spec": "4–20 mA 输出", "specEn": "4–20 mA output", "price": "£294.71", "tier": "工业件", "tierEn": "Industrial component" }
+          ],
+          "kit": [ { "zh": "LVDT 传感器", "en": "LVDT sensor" }, { "zh": "激励与采集", "en": "Excitation and acquisition" } ]
+        },
+        {
+          "zh": "拉线式", "en": "Draw-wire", "scenarios": ["field", "monitor"],
+          "descZh": "钢缆引出长度由卷筒转角给出位移。", "descEn": "Displacement from the drawn-out cable length and drum angle.",
+          "models": [
+            { "name": "Draw Wire Encoder 10–1200 mm", "nameEn": "Draw Wire Encoder 10–1200 mm", "spec": "脉冲推挽；38 mm 直径", "specEn": "Pulse push-pull; 38 mm diameter", "price": "£57.55", "tier": "工业件", "tierEn": "Industrial component" },
+            { "name": "Incremental Cable Encoder 10–3000 mm", "nameEn": "Incremental Cable Encoder 10–3000 mm", "spec": "DC 8–24 V", "specEn": "DC 8–24 V", "price": "£64.86", "tier": "工业件", "tierEn": "Industrial component" }
+          ],
+          "kit": [ { "zh": "拉线式位移计", "en": "Draw-wire transducer" }, { "zh": "脉冲/编码器采集", "en": "Pulse/encoder acquisition" } ]
+        }
+      ]
+    },
+    {
+      "id": "acceleration",
+      "zh": "加速度与振动",
+      "en": "Acceleration and vibration",
+      "noteZh": "冲击看重上升时间，稳态振动可换更高分辨率。",
+      "noteEn": "For shock, follow rise time; for steady vibration, trade range for resolution.",
+      "principles": [
+        {
+          "zh": "压电式 (IEPE/ICP)", "en": "Piezoelectric (IEPE/ICP)", "scenarios": ["tank"],
+          "descZh": "惯性质量块对压电元件施力，电荷/电压换算加速度。", "descEn": "Proof mass loads a piezoelectric element; acceleration from charge/voltage.",
+          "models": [
+            { "name": "PCB 352C33", "nameEn": "PCB 352C33", "spec": "100 mV/g, ±50 g, 0.5–10 kHz", "specEn": "100 mV/g, ±50 g, 0.5–10 kHz", "price": "须询价", "tier": "实验级", "tierEn": "Laboratory grade" },
+            { "name": "IEPE SAED0005JB", "nameEn": "IEPE SAED0005JB", "spec": "ICP/IEPE 单轴", "specEn": "ICP/IEPE single-axis", "price": "£573.65", "tier": "工业件", "tierEn": "Industrial component" }
+          ],
+          "kit": [ { "zh": "加速度计", "en": "Accelerometer" }, { "zh": "恒流源调理器", "en": "Constant-current conditioner" }, { "zh": "采集通道", "en": "Acquisition channel" } ]
+        },
+        {
+          "zh": "电容式 MEMS", "en": "Capacitive MEMS", "scenarios": ["monitor"],
+          "descZh": "质量块位移引起电容变化，可测直流与静态倾角。", "descEn": "Proof-mass displacement changes capacitance; can measure DC and static tilt.",
+          "models": [
+            { "name": "MPU-6050 三轴模块", "nameEn": "MPU-6050 three-axis module", "spec": "3 轴, I²C", "specEn": "3-axis, I²C", "price": "£8.59", "tier": "元件", "tierEn": "Component" },
+            { "name": "MPU-9250 九轴模块", "nameEn": "MPU-9250 nine-axis module", "spec": "16 位, 含磁力计", "specEn": "16-bit, with magnetometer", "price": "£10.04", "tier": "元件", "tierEn": "Component" },
+            { "name": "ADXL375 高 g 模块", "nameEn": "ADXL375 high-g module", "spec": "±200 g, I2C/SPI, 差动电容", "specEn": "±200 g, I2C/SPI, differential capacitance", "price": "£34.91", "tier": "元件", "tierEn": "Component" }
+          ],
+          "kit": [ { "zh": "MEMS 加速度计", "en": "MEMS accelerometer" }, { "zh": "嵌入式采集/记录", "en": "Embedded acquisition/recording" } ]
+        },
+        {
+          "zh": "压阻式（高冲击）", "en": "Piezoresistive (high-shock)", "scenarios": ["tank"],
+          "descZh": "惯性质量块位移经压阻桥输出，侧重高冲击量程。", "descEn": "Proof-mass displacement via a piezoresistive bridge; emphasizes high-shock ranges.",
+          "models": [ { "name": "High Shock Resistant Accelerometer 10000g", "nameEn": "High Shock Resistant Accelerometer 10000g", "spec": "10000 g 量程", "specEn": "10000 g range", "price": "£14.74", "tier": "工业件", "tierEn": "Industrial component" } ],
+          "kit": [ { "zh": "高冲击加速度计", "en": "High-shock accelerometer" }, { "zh": "高速采集通道", "en": "High-speed acquisition channel" } ]
+        }
+      ]
+    },
+    {
+      "id": "strain",
+      "zh": "应变与变形",
+      "en": "Strain and deformation",
+      "noteZh": "盐水环境需电位隔离；沿整条结构连续测选分布式光纤。",
+      "noteEn": "Potential-isolate in salt water; use distributed fibre for full-length coverage.",
+      "principles": [
+        {
+          "zh": "箔式应变片", "en": "Foil strain gauge", "scenarios": ["tank"],
+          "descZh": "金属箔栅随结构变形，电阻变化经桥路输出。", "descEn": "Metal foil grid deforms with the structure; resistance change via a bridge.",
+          "models": [
+            { "name": "BF350-3AA", "nameEn": "BF350-3AA", "spec": "350 Ω, 10 片装", "specEn": "350 Ω, pack of 10", "price": "£8.39", "tier": "元件", "tierEn": "Component" },
+            { "name": "HX711 24 位模块", "nameEn": "HX711 24-bit module", "spec": "双通道桥路放大", "specEn": "Dual-channel bridge amplifier", "price": "£10.08", "tier": "元件", "tierEn": "Component" }
+          ],
+          "kit": [ { "zh": "应变片", "en": "Strain gauge" }, { "zh": "桥路放大模块", "en": "Bridge amplifier module" }, { "zh": "采集通道", "en": "Acquisition channel" } ]
+        },
+        {
+          "zh": "光纤布拉格光栅 (FBG)", "en": "Fibre Bragg grating (FBG)", "scenarios": ["tank", "field", "monitor"],
+          "descZh": "反射中心波长随光栅应变移动，可预埋进结构内部。", "descEn": "Reflected centre wavelength shifts with strain; can be embedded internally.",
+          "models": [ { "name": "FBG 光纤光栅解调仪（无线版）", "nameEn": "FBG interrogator (wireless)", "spec": "温度与应变监测", "specEn": "Temperature and strain monitoring", "price": "¥52,000", "tier": "整机", "tierEn": "Complete instrument" } ],
+          "kit": [ { "zh": "FBG 光栅与解调仪", "en": "FBG gratings and interrogator" }, { "zh": "温度补偿光栅", "en": "Temperature-compensation grating" } ]
+        },
+        {
+          "zh": "分布式光纤", "en": "Distributed fibre optic", "scenarios": ["field", "monitor"],
+          "descZh": "沿光纤散射信号逐段解调，给出沿程应变分布。", "descEn": "Scattered signal along the fibre is demodulated to give along-length strain.",
+          "models": [ { "name": "Luna ODiSI 6000 / Silixa 等", "nameEn": "Luna ODiSI 6000 / Silixa, etc.", "spec": "连续沿程应变", "specEn": "Continuous along-length strain", "price": "须询价", "tier": "实验级", "tierEn": "Laboratory grade" } ],
+          "kit": [ { "zh": "传感光缆", "en": "Sensing fibre cable" }, { "zh": "分布式解调仪", "en": "Distributed interrogator" } ]
+        }
+      ]
+    },
+    {
+      "id": "torque",
+      "zh": "扭矩与转速",
+      "en": "Torque and speed",
+      "noteZh": "功率=扭矩×转速，两路信号须同步；对中误差会产生转频分量。",
+      "noteEn": "Power = torque × speed; the two channels must be synchronised.",
+      "principles": [
+        {
+          "zh": "应变式扭矩传感器", "en": "Strain-gauge torque sensor", "scenarios": ["tank", "field"],
+          "descZh": "轴受扭时桥路输出与扭矩成比例。", "descEn": "Bridge output is proportional to torque when the shaft is twisted.",
+          "models": [
+            { "name": "BFN-206 旋转式应变扭矩传感器", "nameEn": "BFN-206 rotary strain-gauge torque sensor", "spec": "0–1000 N·m", "specEn": "0–1000 N·m", "price": "£2,148.17", "tier": "工业件", "tierEn": "Industrial component" },
+            { "name": "DAYSENSOR 静态扭矩传感器", "nameEn": "DAYSENSOR static torque sensor", "spec": "50 N·m", "specEn": "50 N·m", "price": "£145.99", "tier": "工业件", "tierEn": "Industrial component" }
+          ],
+          "kit": [ { "zh": "扭矩传感器", "en": "Torque sensor" }, { "zh": "滑环或遥测", "en": "Slip ring or telemetry" }, { "zh": "转速编码器", "en": "Speed encoder" }, { "zh": "同步采集", "en": "Synchronous acquisition" } ]
+        },
+        {
+          "zh": "无线遥测扭矩", "en": "Wireless telemetry torque", "scenarios": ["tank", "field"],
+          "descZh": "非接触旋转测量，免滑环并传回扭矩与转速。", "descEn": "Non-contact rotary measurement; no slip ring, returns torque and speed.",
+          "models": [
+            { "name": "10 N·m Rotary Torque Sensor Set", "nameEn": "10 N·m Rotary Torque Sensor Set", "spec": "OLED 显示，转速与功率", "specEn": "OLED display, speed and power", "price": "£659.99", "tier": "整机", "tierEn": "Complete instrument" },
+            { "name": "NJ5101-200 非接触旋转扭矩", "nameEn": "NJ5101-200 non-contact rotary torque", "spec": "200 N·m, RS485", "specEn": "200 N·m, RS485", "price": "£1,503.55", "tier": "整机", "tierEn": "Complete instrument" }
+          ],
+          "kit": [ { "zh": "遥测扭矩传感器", "en": "Telemetry torque sensor" }, { "zh": "接收与采集", "en": "Receiver and acquisition" } ]
+        }
+      ]
+    },
+    {
+      "id": "temperature",
+      "zh": "温度",
+      "en": "Temperature",
+      "noteZh": "水温用于声速与电导率补偿，分层时至少上下层各测一点。",
+      "noteEn": "Water temperature feeds sound-speed and conductivity correction.",
+      "principles": [
+        {
+          "zh": "铂电阻 (PT100)", "en": "Platinum resistance (PT100)", "scenarios": ["tank", "field", "monitor"],
+          "descZh": "铂丝电阻随温度近线性变化，四线制消除引线误差。", "descEn": "Platinum resistance is near-linear with temperature; four-wire removes lead error.",
+          "models": [
+            { "name": "PerfectPrime TL4050", "nameEn": "PerfectPrime TL4050", "spec": "四线 A 级 PT100, −50–200 °C", "specEn": "Four-wire Class A PT100, −50–200 °C", "price": "£18.99", "tier": "元件", "tierEn": "Component" },
+            { "name": "PT100 一体化变送器", "nameEn": "PT100 integrated transmitter", "spec": "4–20 mA, 0–100 °C", "specEn": "4–20 mA, 0–100 °C", "price": "£11.85", "tier": "工业件", "tierEn": "Industrial component" }
+          ],
+          "kit": [ { "zh": "铂电阻探头", "en": "Platinum resistance probe" }, { "zh": "四线制采集/变送", "en": "Four-wire acquisition/transmitter" } ]
+        },
+        {
+          "zh": "热电偶 (K 型)", "en": "Thermocouple (type K)", "scenarios": ["tank", "field"],
+          "descZh": "两种金属接点产生热电动势，需冷端补偿。", "descEn": "Thermoelectric EMF between two metals; requires cold-junction compensation.",
+          "models": [
+            { "name": "K 型热电偶探头 2 支装", "nameEn": "Type-K thermocouple probe, pack of 2", "spec": "−50–400 °C, 4 m 引线", "specEn": "−50–400 °C, 4 m lead", "price": "£7.99", "tier": "元件", "tierEn": "Component" },
+            { "name": "Pico TC-08", "nameEn": "Pico TC-08", "spec": "8 通道热电偶采集", "specEn": "8-channel thermocouple acquisition", "price": "£418.80", "tier": "实验级", "tierEn": "Laboratory grade" }
+          ],
+          "kit": [ { "zh": "热电偶", "en": "Thermocouple" }, { "zh": "冷端补偿采集模块", "en": "Cold-junction-compensated acquisition module" } ]
+        },
+        {
+          "zh": "热敏电阻", "en": "Thermistor", "scenarios": ["tank"],
+          "descZh": "半导体电阻随温度显著变化，灵敏度高但非线性。", "descEn": "Semiconductor resistance varies strongly with temperature; sensitive but nonlinear.",
+          "models": [ { "name": "NTC 热敏电阻 (TDK)", "nameEn": "NTC thermistor (TDK)", "spec": "高灵敏、非线性", "specEn": "High sensitivity, nonlinear", "price": "按型号", "tier": "元件", "tierEn": "Component" } ],
+          "kit": [ { "zh": "NTC 热敏电阻", "en": "NTC thermistor" }, { "zh": "标定与采集", "en": "Calibration and acquisition" } ]
+        }
+      ]
+    },
+    {
+      "id": "motion",
+      "zh": "刚体运动与姿态",
+      "en": "Rigid-body motion and attitude",
+      "noteZh": "需要六自由度实时位姿选光学捕捉；无视线或水下用 IMU。",
+      "noteEn": "Optical capture for real-time 6-DoF; IMU when no line of sight or underwater.",
+      "principles": [
+        {
+          "zh": "光学运动捕捉", "en": "Optical motion capture", "scenarios": ["tank"],
+          "descZh": "多相机交会标记点，实时解算六自由度位姿。", "descEn": "Multi-camera triangulation of markers gives real-time 6-DoF pose.",
+          "models": [ { "name": "Qualisys Miqus", "nameEn": "Qualisys Miqus", "spec": "六自由度, 低延迟", "specEn": "6-DoF, low latency", "price": "须询价", "tier": "实验级", "tierEn": "Laboratory grade" } ],
+          "kit": [ { "zh": "多台相机", "en": "Multiple cameras" }, { "zh": "标记点", "en": "Markers" }, { "zh": "解算软件", "en": "Solver software" } ]
+        },
+        {
+          "zh": "惯性测量单元 (IMU)", "en": "Inertial measurement unit (IMU)", "scenarios": ["tank", "field"],
+          "descZh": "陀螺测角速度、加速度计测比力，积分得姿态与位置。", "descEn": "Gyros measure angular velocity and accelerometers specific force; attitude/position by integration.",
+          "models": [
+            { "name": "VectorNav VN-100", "nameEn": "VectorNav VN-100", "spec": "0.001° 分辨率, 400 Hz", "specEn": "0.001° resolution, 400 Hz", "price": "须询价", "tier": "测量级", "tierEn": "Measurement grade" },
+            { "name": "MPU-9250 九轴模块", "nameEn": "MPU-9250 nine-axis module", "spec": "16 位, 含磁力计", "specEn": "16-bit, with magnetometer", "price": "£10.04", "tier": "元件", "tierEn": "Component" }
+          ],
+          "kit": [ { "zh": "IMU", "en": "IMU" }, { "zh": "姿态解算与采集", "en": "Attitude solution and acquisition" } ]
+        },
+        {
+          "zh": "激光位移", "en": "Laser displacement", "scenarios": ["tank"],
+          "descZh": "测点到基准面的距离换算单方向位移分量。", "descEn": "Single-direction displacement from the distance to a reference plane.",
+          "models": [ { "name": "KJT-TG30 TOF 激光传感器", "nameEn": "KJT-TG30 TOF laser sensor", "spec": "5 m, NPN/PNP/RS485", "specEn": "5 m, NPN/PNP/RS485", "price": "£152.22", "tier": "工业件", "tierEn": "Industrial component" } ],
+          "kit": [ { "zh": "激光位移传感器", "en": "Laser displacement sensor" }, { "zh": "采集通道", "en": "Acquisition channel" } ]
+        }
+      ]
+    },
+    {
+      "id": "hydrology",
+      "zh": "水文与水质",
+      "en": "Hydrology and water quality",
+      "noteZh": "电导率用于声速与物性修正，浊度用于沉积物输运；盐淡水转换需分别标定。",
+      "noteEn": "Conductivity for sound-speed correction, turbidity for sediment transport; recalibrate across fresh/salt water.",
+      "principles": [
+        {
+          "zh": "电导率与盐度", "en": "Conductivity and salinity", "scenarios": ["field", "monitor"],
+          "descZh": "电导池测电导率，配合温度按物性关系换算盐度与密度。", "descEn": "Conductivity cell measures conductivity; salinity and density follow from conductivity and temperature.",
+          "models": [ { "name": "Valeport SWiFT CTD 温盐深传感器", "nameEn": "Valeport SWiFT CTD", "spec": "自容式温盐深剖面", "specEn": "Self-contained CTD profile", "price": "¥20,500", "tier": "整机", "tierEn": "Complete instrument" } ],
+          "kit": [ { "zh": "温盐深传感器", "en": "CTD sensor" }, { "zh": "自容记录与导出", "en": "Self-contained recording and export" } ]
+        },
+        {
+          "zh": "溶解氧", "en": "Dissolved oxygen", "scenarios": ["field", "monitor"],
+          "descZh": "氧分子淬灭荧光染料，由荧光寿命或强度换算浓度。", "descEn": "Oxygen quenches a fluorescent dye; concentration from lifetime or intensity.",
+          "models": [ { "name": "Milwaukee MW600", "nameEn": "Milwaukee MW600", "spec": "0.0–19.0 mg/L，两点标定", "specEn": "0.0–19.0 mg/L, two-point calibration", "price": "£274.99", "tier": "实验级", "tierEn": "Laboratory grade" } ],
+          "kit": [ { "zh": "溶解氧探头", "en": "Dissolved-oxygen probe" }, { "zh": "记录与标定", "en": "Recording and calibration" } ]
+        },
+        {
+          "zh": "浊度与悬浮物", "en": "Turbidity and suspended solids", "scenarios": ["tank", "field"],
+          "descZh": "光束照射水体，由散射光强换算浊度，再按实际泥沙标定浓度。", "descEn": "Scattered-light intensity gives turbidity; concentration via sediment-specific calibration.",
+          "models": [
+            { "name": "在线浊度/悬浮固体传感器", "nameEn": "Online turbidity/suspended-solids sensor", "spec": "工业在线，污泥浓度检测型", "specEn": "Industrial online, sludge-concentration type", "price": "£110.99", "tier": "工业件", "tierEn": "Industrial component" },
+            { "name": "Gravity Analog Turbidity Sensor", "nameEn": "Gravity Analog Turbidity Sensor", "spec": "模拟输出", "specEn": "Analogue output", "price": "£22.92", "tier": "元件", "tierEn": "Component" }
+          ],
+          "kit": [ { "zh": "浊度计", "en": "Turbidimeter" }, { "zh": "采集通道", "en": "Acquisition channel" } ]
+        },
+        {
+          "zh": "叶绿素", "en": "Chlorophyll", "scenarios": ["field", "monitor"],
+          "descZh": "叶绿素受激发后发荧光，由荧光强度换算叶绿素浓度。", "descEn": "Chlorophyll fluoresces after excitation; concentration from fluorescence intensity.",
+          "models": [ { "name": "在线数字水质叶绿素/蓝绿藻传感器", "nameEn": "Online chlorophyll / blue-green-algae sensor", "spec": "电极探头，含测控仪", "specEn": "Electrode probe with controller", "price": "¥450", "tier": "整机", "tierEn": "Complete instrument" } ],
+          "kit": [ { "zh": "叶绿素荧光探头", "en": "Chlorophyll fluorescence probe" }, { "zh": "生物标定", "en": "Biological calibration" } ]
+        },
+        {
+          "zh": "酸碱度与二氧化碳", "en": "pH and carbon dioxide", "scenarios": ["field", "monitor"],
+          "descZh": "玻璃电极或光学指示剂响应氢离子活度，CO2 分压由敏感元件给出。", "descEn": "Glass electrode or optical indicator responds to hydrogen-ion activity; CO2 partial pressure from a sensing element.",
+          "models": [
+            { "name": "便携式 pH 计", "nameEn": "Portable pH meter", "spec": "手持式，含温度显示", "specEn": "Handheld, with temperature display", "price": "£14.44", "tier": "工业件", "tierEn": "Industrial component" },
+            { "name": "PXS-CO2 台式溶解二氧化碳分析仪", "nameEn": "PXS-CO2 benchtop dissolved-CO2 analyser", "spec": "LCD 显示", "specEn": "LCD display", "price": "£1,963.27", "tier": "实验级", "tierEn": "Laboratory grade" }
+          ],
+          "kit": [ { "zh": "pH/CO2 探头", "en": "pH/CO2 probe" }, { "zh": "记录与定期标定", "en": "Recording and periodic calibration" } ]
+        }
+      ]
+    },
+    {
+      "id": "meteorology",
+      "zh": "气象与风",
+      "en": "Meteorology and wind",
+      "noteZh": "浮式风机模型试验关注来流风速与湍流度，参考高度与平均时间需写明。",
+      "noteEn": "Floating-turbine model tests need inflow speed and turbulence; state reference height and averaging time.",
+      "principles": [
+        {
+          "zh": "超声风速仪", "en": "Ultrasonic anemometer", "scenarios": ["tank", "field", "monitor"],
+          "descZh": "成对换能器互发互收声脉冲，由顺逆风传播时间差换算风速。", "descEn": "Paired transducers exchange sound pulses; wind speed from up/down-wind travel-time difference.",
+          "models": [
+            { "name": "超声风速风向传感器", "nameEn": "Ultrasonic wind speed/direction sensor", "spec": "RS485 输出，二维", "specEn": "RS485 output, 2D", "price": "£82.90", "tier": "工业件", "tierEn": "Industrial component" },
+            { "name": "RS485 Modbus 小型气象站", "nameEn": "RS485 Modbus mini weather station", "spec": "风速风向+气压+太阳辐照", "specEn": "Wind + pressure + solar irradiance", "price": "£246.86", "tier": "整机", "tierEn": "Complete instrument" }
+          ],
+          "kit": [ { "zh": "超声风速仪", "en": "Ultrasonic anemometer" }, { "zh": "采集与气象站", "en": "Acquisition and weather station" } ]
+        },
+        {
+          "zh": "机械式风速仪", "en": "Mechanical anemometer", "scenarios": ["tank", "field"],
+          "descZh": "风杯或螺旋桨随风转动，转速与风速近似成比例。", "descEn": "Cups or propeller rotate with the wind; rotational speed is near-proportional to wind speed.",
+          "models": [
+            { "name": "HEEPDD 三杯风速传感器", "nameEn": "HEEPDD three-cup wind sensor", "spec": "RS485 Modbus，0.2 mph 分辨", "specEn": "RS485 Modbus, 0.2 mph resolution", "price": "£49.16", "tier": "工业件", "tierEn": "Industrial component" },
+            { "name": "户外三杯风速风向传感器", "nameEn": "Outdoor three-cup wind sensor", "spec": "量程至 60 m/s", "specEn": "Range to 60 m/s", "price": "£61.80", "tier": "工业件", "tierEn": "Industrial component" }
+          ],
+          "kit": [ { "zh": "机械式风速仪", "en": "Mechanical anemometer" }, { "zh": "采集与风洞标定", "en": "Acquisition and wind-tunnel calibration" } ]
+        },
+        {
+          "zh": "激光测风雷达", "en": "Wind lidar", "scenarios": ["field", "monitor"],
+          "descZh": "气溶胶散射光频移换算径向风速，扫描反演风廓线。", "descEn": "Radial wind speed from aerosol-scattered-light frequency shift; wind profile by scanning.",
+          "models": [
+            { "name": "近距测风激光雷达", "nameEn": "Short-range wind lidar", "spec": "近距气象业务探测", "specEn": "Short-range meteorological detection", "price": "¥200,000", "tier": "整机", "tierEn": "Complete instrument" },
+            { "name": "多普勒激光测风雷达", "nameEn": "Doppler wind lidar", "spec": "三维扫描式，风机尾流检测", "specEn": "3D scanning, turbine-wake detection", "price": "¥700,000", "tier": "整机", "tierEn": "Complete instrument" }
+          ],
+          "kit": [ { "zh": "测风激光雷达", "en": "Wind lidar" }, { "zh": "风廓线反演软件", "en": "Wind-profile inversion software" } ]
+        }
+      ]
+    },
+    {
+      "id": "position",
+      "zh": "位置与导航",
+      "en": "Position and navigation",
+      "noteZh": "水面用卫星定位，水下用声学+多普勒+惯导组合；声速剖面需实测。",
+      "noteEn": "GNSS on the surface; underwater use acoustics + DVL + INS; measure the sound-speed profile.",
+      "principles": [
+        {
+          "zh": "全球导航卫星系统", "en": "GNSS", "scenarios": ["field", "monitor"],
+          "descZh": "接收机解算卫星信号传播时间或载波相位，得三维位置。", "descEn": "Receiver solves satellite-signal travel time or carrier phase for 3D position.",
+          "models": [
+            { "name": "Waveshare LG290P 四频 GNSS 模块", "nameEn": "Waveshare LG290P quad-frequency GNSS module", "spec": "L1+L2+L5+E6，RTK 厘米级", "specEn": "L1+L2+L5+E6, RTK centimetre-level", "price": "£99.99", "tier": "元件", "tierEn": "Component" },
+            { "name": "SMA25R 手持 RTK 测量系统", "nameEn": "SMA25R handheld RTK system", "spec": "PPP 10 cm，倾斜补偿", "specEn": "PPP 10 cm, tilt compensation", "price": "£777.00", "tier": "整机", "tierEn": "Complete instrument" }
+          ],
+          "kit": [ { "zh": "GNSS 接收机", "en": "GNSS receiver" }, { "zh": "差分基准/RTK", "en": "Differential base / RTK" } ]
+        },
+        {
+          "zh": "水声定位", "en": "Acoustic positioning", "scenarios": ["field"],
+          "descZh": "声脉冲传播时间提供距离，长基线/超短基线解算水下位置。", "descEn": "Acoustic-pulse travel time gives range; LBL/USBL solve underwater position.",
+          "models": [ { "name": "USBL 超短基线水声定位系统", "nameEn": "USBL ultra-short-baseline positioning", "spec": "超短基线定位", "specEn": "Ultra-short-baseline positioning", "price": "¥800,000", "tier": "整机", "tierEn": "Complete instrument" } ],
+          "kit": [ { "zh": "水声定位系统", "en": "Acoustic positioning system" }, { "zh": "声速剖面测量", "en": "Sound-speed profile measurement" } ]
+        },
+        {
+          "zh": "多普勒测速", "en": "Doppler velocity log (DVL)", "scenarios": ["field"],
+          "descZh": "底回波多普勒频移得相对海底速度与高度，积分得位移。", "descEn": "Bottom-echo Doppler shift gives seabed-relative velocity and altitude; displacement by integration.",
+          "models": [
+            { "name": "H1000 水下机器人导航传感器 DVL", "nameEn": "H1000 underwater-robot DVL", "spec": "小型 ROV 用", "specEn": "For small ROVs", "price": "¥58,000", "tier": "整机", "tierEn": "Complete instrument" },
+            { "name": "DVL1000 多普勒计程仪（4000 m）", "nameEn": "DVL1000 Doppler log (4000 m)", "spec": "4000 m 耐压", "specEn": "4000 m pressure rating", "price": "¥523,000", "tier": "整机", "tierEn": "Complete instrument" }
+          ],
+          "kit": [ { "zh": "多普勒计程仪", "en": "Doppler velocity log" }, { "zh": "底跟踪与积分导航", "en": "Bottom tracking and dead reckoning" } ]
+        },
+        {
+          "zh": "惯性导航", "en": "Inertial navigation", "scenarios": ["field"],
+          "descZh": "陀螺测角速度、加速度计测比力，积分得姿态、速度与位置。", "descEn": "Gyros measure angular velocity and accelerometers specific force; attitude/velocity/position by integration.",
+          "models": [ { "name": "瑞惯 GNS800 高精度 INS 组合导航系统", "nameEn": "GNS800 high-accuracy INS", "spec": "三维姿态航向与位置", "specEn": "3D attitude, heading and position", "price": "¥26,000", "tier": "整机", "tierEn": "Complete instrument" } ],
+          "kit": [ { "zh": "惯导系统", "en": "INS" }, { "zh": "组合导航融合", "en": "Integrated-navigation fusion" } ]
+        }
+      ]
+    },
+    {
+      "id": "acoustic",
+      "zh": "声学与水下感知",
+      "en": "Acoustics and underwater sensing",
+      "noteZh": "空化与噪声测量需测背景噪声、记录水质含气量，灵敏度标定须溯源。",
+      "noteEn": "Measure background noise and record water quality/gas content for cavitation; traceable sensitivity calibration.",
+      "principles": [
+        {
+          "zh": "单只水听器", "en": "Single hydrophone", "scenarios": ["tank", "field", "monitor"],
+          "descZh": "压电陶瓷受声压产电荷，由标定灵敏度换算声压。", "descEn": "Piezoelectric ceramic produces charge under sound pressure; pressure via calibrated sensitivity.",
+          "models": [
+            { "name": "Brüel & Kjær 8103 水听器", "nameEn": "Brüel & Kjær Type 8103 hydrophone", "spec": "参考型号 B&K 8103", "specEn": "Reference model B&K 8103", "price": "¥64,800", "tier": "实验级", "tierEn": "Laboratory grade" },
+            { "name": "高灵敏度微型水听器", "nameEn": "High-sensitivity miniature hydrophone", "spec": "管道测漏/海洋监测", "specEn": "Leak detection / marine monitoring", "price": "¥2,500", "tier": "元件", "tierEn": "Component" }
+          ],
+          "kit": [ { "zh": "水听器", "en": "Hydrophone" }, { "zh": "电荷/电压采集", "en": "Charge/voltage acquisition" } ]
+        },
+        {
+          "zh": "水听器阵列", "en": "Hydrophone array", "scenarios": ["tank"],
+          "descZh": "多只水听器同步接收，波束形成定位声源方位。", "descEn": "Several hydrophones receive synchronously; beamforming locates the sound source.",
+          "models": [ { "name": "（厂家询价）", "nameEn": "(Manufacturer quotation)", "spec": "阵元数决定分辨率", "specEn": "Resolution set by element count", "price": "须询价", "tier": "实验级", "tierEn": "Laboratory grade" } ],
+          "kit": [ { "zh": "水听器阵列", "en": "Hydrophone array" }, { "zh": "多通道同步采集", "en": "Multi-channel synchronous acquisition" } ]
+        },
+        {
+          "zh": "声学调制解调器", "en": "Acoustic modem", "scenarios": ["field", "monitor"],
+          "descZh": "用声波在水下传输编码信号，接收端解调还原数据。", "descEn": "Coded signals are transmitted acoustically underwater and demodulated at the receiver.",
+          "models": [ { "name": "（厂家询价）", "nameEn": "(Manufacturer quotation)", "spec": "速率与距离权衡", "specEn": "Rate/distance trade-off", "price": "须询价", "tier": "实验级", "tierEn": "Laboratory grade" } ],
+          "kit": [ { "zh": "声学调制解调器", "en": "Acoustic modem" }, { "zh": "水面浮标与卫星回传", "en": "Surface buoy and satellite backhaul" } ]
+        }
+      ]
+    },
+    {
+      "id": "terrain",
+      "zh": "地形与地球物理",
+      "en": "Terrain and geophysics",
+      "noteZh": "水池冲刷多用排水后光学扫描，现场大范围用多波束与侧扫声呐。",
+      "noteEn": "Tank scour uses post-draining optical scanning; field surveys use multibeam and side-scan sonar.",
+      "principles": [
+        {
+          "zh": "激光线扫描", "en": "Laser line scanning", "scenarios": ["tank"],
+          "descZh": "激光线投到床面，相机记录线形，逐条扫描拼成三维地形。", "descEn": "A laser line is projected on the bed and imaged, stitching a 3D surface line by line.",
+          "models": [ { "name": "科恩激光轮廓传感器", "nameEn": "Keen laser profile sensor", "spec": "线激光轮廓，物料三维外轮廓", "specEn": "Line-laser profile, 3D outer profile", "price": "¥13,500", "tier": "整机", "tierEn": "Complete instrument" } ],
+          "kit": [ { "zh": "线激光轮廓仪", "en": "Line-laser profilometer" }, { "zh": "扫描机构与拼合", "en": "Scanning stage and stitching" } ]
+        },
+        {
+          "zh": "结构光与摄影测量", "en": "Structured light & photogrammetry", "scenarios": ["tank"],
+          "descZh": "投影条纹或散斑图案，由图案变形重建三维表面。", "descEn": "Fringe/speckle patterns are projected; the 3D surface is reconstructed from their deformation.",
+          "models": [
+            { "name": "Revopoint INSPIRE 2", "nameEn": "Revopoint INSPIRE 2", "spec": "0.03 mm 精度", "specEn": "0.03 mm accuracy", "price": "£388.00", "tier": "整机", "tierEn": "Complete instrument" },
+            { "name": "Revopoint MetroY Pro", "nameEn": "Revopoint MetroY Pro", "spec": "0.01 mm，蓝激光", "specEn": "0.01 mm, blue laser", "price": "£1,001.00", "tier": "整机", "tierEn": "Complete instrument" }
+          ],
+          "kit": [ { "zh": "结构光扫描仪", "en": "Structured-light scanner" }, { "zh": "标定与重建软件", "en": "Calibration and reconstruction software" } ]
+        },
+        {
+          "zh": "多波束测深", "en": "Multibeam bathymetry", "scenarios": ["field", "monitor"],
+          "descZh": "扇面发射窄波束，由往返时间与波束角合成深度剖面。", "descEn": "A fan of narrow beams gives depth profiles from round-trip time and beam angle.",
+          "models": [
+            { "name": "无人船单波束/侧扫/多波束", "nameEn": "USV echosounder / side-scan / multibeam", "spec": "河流湖泊航道水下地形", "specEn": "River/lake-channel underwater terrain", "price": "¥80,000", "tier": "整机", "tierEn": "Complete instrument" },
+            { "name": "水下声呐多波束成像高清侧扫", "nameEn": "Underwater multibeam imaging / HD side-scan", "spec": "7 寸显示，成像声呐", "specEn": "7-inch display, imaging sonar", "price": "¥338,418", "tier": "整机", "tierEn": "Complete instrument" }
+          ],
+          "kit": [ { "zh": "多波束测深仪", "en": "Multibeam echosounder" }, { "zh": "声速剖面与潮位校正", "en": "Sound-speed profile and tide correction" } ]
+        },
+        {
+          "zh": "侧扫声呐", "en": "Side-scan sonar", "scenarios": ["field"],
+          "descZh": "拖鱼向两侧发射声脉冲，按回波强度展开地貌影像。", "descEn": "The towfish transmits sideways; echo intensity forms geomorphological imagery.",
+          "models": [ { "name": "水下声呐多波束成像高清侧扫搜救声呐", "nameEn": "Underwater HD side-scan search sonar", "spec": "成像声呐", "specEn": "Imaging sonar", "price": "¥338,418", "tier": "整机", "tierEn": "Complete instrument" } ],
+          "kit": [ { "zh": "侧扫声呐", "en": "Side-scan sonar" }, { "zh": "拖曳与航迹记录", "en": "Towing and track recording" } ]
+        },
+        {
+          "zh": "浅地层剖面", "en": "Sub-bottom profiler", "scenarios": ["field"],
+          "descZh": "低频声脉冲穿透浅层沉积物，按反射时延解释地层结构。", "descEn": "Low-frequency pulses penetrate shallow sediments; strata from reflection delays.",
+          "models": [ { "name": "（厂家询价）", "nameEn": "(Manufacturer quotation)", "spec": "分米到米级垂向分辨率", "specEn": "dm-to-m vertical resolution", "price": "须询价", "tier": "实验级", "tierEn": "Laboratory grade" } ],
+          "kit": [ { "zh": "浅地层剖面仪", "en": "Sub-bottom profiler" }, { "zh": "地质解释", "en": "Geological interpretation" } ]
+        }
+      ]
+    },
+    {
+      "id": "corrosion",
+      "zh": "腐蚀与阴极保护",
+      "en": "Corrosion and cathodic protection",
+      "noteZh": "参比电极给保护电位、电阻探针给累积损失，长期无人值守两者配合使用。",
+      "noteEn": "Reference electrode gives protection potential, resistance probe gives cumulative loss; use both for long-term unattended deployment.",
+      "principles": [
+        {
+          "zh": "参比电极", "en": "Reference electrode", "scenarios": ["tank", "field", "monitor"],
+          "descZh": "以电位已知的参比电极为基准，测量被保护结构相对它的电位。", "descEn": "Measures the structure potential against a reference electrode of known potential.",
+          "models": [
+            { "name": "stonylab Ag/AgCl 参比电极", "nameEn": "stonylab Ag/AgCl reference electrode", "spec": "6×65 mm，中性电解液", "specEn": "6×65 mm, neutral electrolyte", "price": "£69.99", "tier": "实验级", "tierEn": "Laboratory grade" },
+            { "name": "CHI111 Ag/AgCl 参比电极", "nameEn": "CHI111 Ag/AgCl reference electrode", "spec": "78 mm，陶瓷砂芯", "specEn": "78 mm, ceramic frit", "price": "£39.81", "tier": "实验级", "tierEn": "Laboratory grade" }
+          ],
+          "kit": [ { "zh": "参比电极", "en": "Reference electrode" }, { "zh": "电位采集", "en": "Potential acquisition" } ]
+        },
+        {
+          "zh": "电阻探针", "en": "Resistance probe", "scenarios": ["field", "monitor"],
+          "descZh": "探针元件腐蚀使截面减小电阻增大，由电阻变化换算金属损失。", "descEn": "Corrosion reduces the element cross-section and raises resistance; metal loss from the resistance change.",
+          "models": [ { "name": "电阻探针腐蚀监测仪", "nameEn": "Resistance-probe corrosion monitor", "spec": "均匀腐蚀速率测量", "specEn": "Uniform corrosion-rate measurement", "price": "¥25,400", "tier": "整机", "tierEn": "Complete instrument" } ],
+          "kit": [ { "zh": "电阻探针", "en": "Resistance probe" }, { "zh": "长期自容记录", "en": "Long-term self-contained recording" } ]
+        },
+        {
+          "zh": "线性极化电阻", "en": "Linear polarisation resistance", "scenarios": ["field", "monitor"],
+          "descZh": "在腐蚀电位附近施加微小极化，由极化电阻换算瞬时腐蚀速率。", "descEn": "Small polarisation near the corrosion potential gives the instantaneous corrosion rate.",
+          "models": [ { "name": "（厂家询价）", "nameEn": "(Manufacturer quotation)", "spec": "在线腐蚀速率", "specEn": "Online corrosion rate", "price": "须询价", "tier": "实验级", "tierEn": "Laboratory grade" } ],
+          "kit": [ { "zh": "极化电阻探头", "en": "LPR probe" }, { "zh": "恒电位采集", "en": "Potentiostatic acquisition" } ]
+        },
+        {
+          "zh": "电位场阵列", "en": "Potential-field array", "scenarios": ["field", "monitor"],
+          "descZh": "布设多个参比电极同步测电位，定位涂层破损与欠保护区域。", "descEn": "Multiple reference electrodes map the protection potential and locate under-protected areas.",
+          "models": [
+            { "name": "Pico PicoLog 1012", "nameEn": "Pico PicoLog 1012", "spec": "12 位，多通道，含端子板", "specEn": "12-bit, multi-channel, terminal board", "price": "£190.80", "tier": "实验级", "tierEn": "Laboratory grade" },
+            { "name": "Pico PicoLog 1216", "nameEn": "Pico PicoLog 1216", "spec": "16 通道，含端子板", "specEn": "16 channels, terminal board", "price": "£270.00", "tier": "实验级", "tierEn": "Laboratory grade" }
+          ],
+          "kit": [ { "zh": "多点参比电极", "en": "Multi-point reference electrodes" }, { "zh": "多通道采集", "en": "Multi-channel acquisition" } ]
+        }
+      ]
+    },
+    {
+      "id": "fibre",
+      "zh": "分布式光纤感知",
+      "en": "Distributed fibre-optic sensing",
+      "noteZh": "沿整条光纤连续测量应变/温度/声振；长距离空间分辨率米级，高密度短距可到亚毫米。",
+      "noteEn": "Continuous strain/temperature/acoustic sensing along the fibre; metre-scale spatial resolution over long range, sub-mm for short high-density systems.",
+      "principles": [
+        {
+          "zh": "分布式温度传感 (DTS)", "en": "Distributed temperature sensing (DTS)", "scenarios": ["field", "monitor"],
+          "descZh": "读取光纤上随温度变化的拉曼/布里渊散射，得沿程温度分布。", "descEn": "Raman/Brillouin scattering along the fibre gives the along-length temperature distribution.",
+          "models": [ { "name": "北京耐久伟业 DAS/DTS 分布式光纤解调仪", "nameEn": "DAS/DTS distributed fibre interrogator", "spec": "分布式光纤解调", "specEn": "Distributed fibre interrogation", "price": "¥49,999", "tier": "整机", "tierEn": "Complete instrument" } ],
+          "kit": [ { "zh": "测温光缆", "en": "Temperature-sensing cable" }, { "zh": "DTS 解调仪", "en": "DTS interrogator" } ]
+        },
+        {
+          "zh": "分布式声学传感 (DAS)", "en": "Distributed acoustic sensing (DAS)", "scenarios": ["field", "monitor"],
+          "descZh": "瑞利散射相位随光纤局部长度变化，逐段解调得沿纤声振信号。", "descEn": "Rayleigh-scattering phase changes with local fibre length; demodulated for along-fibre acoustic signals.",
+          "models": [ { "name": "高精度 DAS 分布式光纤声波监测主机", "nameEn": "High-accuracy DAS monitoring host", "spec": "分布式光纤声波监测", "specEn": "Distributed fibre acoustic monitoring", "price": "¥450,000", "tier": "整机", "tierEn": "Complete instrument" } ],
+          "kit": [ { "zh": "传感光缆", "en": "Sensing cable" }, { "zh": "DAS 解调与存储", "en": "DAS interrogation and storage" } ]
+        },
+        {
+          "zh": "分布式应变传感", "en": "Distributed strain sensing", "scenarios": ["field", "monitor"],
+          "descZh": "布里渊频移或瑞利谱移换算沿程应变，需分离温度效应。", "descEn": "Brillouin or Rayleigh spectral shift gives along-length strain; temperature effect must be separated.",
+          "models": [ { "name": "铠装多模分布式测温光缆", "nameEn": "Armoured multimode sensing cable", "spec": "A62.5/125 μm", "specEn": "A62.5/125 μm", "price": "£119.94", "tier": "元件", "tierEn": "Component" } ],
+          "kit": [ { "zh": "应变传感光缆", "en": "Strain-sensing cable" }, { "zh": "应变解调仪（询价）", "en": "Strain interrogator (quotation)" } ]
+        }
+      ]
+    },
+    {
+      "id": "optical",
+      "zh": "光学与图像测量",
+      "en": "Optical and image-based measurement",
+      "noteZh": "PIV/DIC 给全场分布，高速成像记录瞬态形态；水下需修正折射与照明。",
+      "noteEn": "PIV/DIC give full fields, high-speed imaging records transients; correct refraction and lighting underwater.",
+      "principles": [
+        {
+          "zh": "粒子图像测速 (PIV)", "en": "Particle image velocimetry (PIV)", "scenarios": ["tank"],
+          "descZh": "相机记录示踪粒子图像对，由位移与时间间隔换算速度场。", "descEn": "Tracer-particle image pairs give the velocity field from displacement and time interval.",
+          "models": [ { "name": "LaVision FlowMaster", "nameEn": "LaVision FlowMaster", "spec": "全场速度场", "specEn": "Full-field velocity field", "price": "须询价", "tier": "实验级", "tierEn": "Laboratory grade" } ],
+          "kit": [ { "zh": "相机与激光照明", "en": "Camera and laser illumination" }, { "zh": "示踪粒子与 PIV 软件", "en": "Tracer particles and PIV software" } ]
+        },
+        {
+          "zh": "数字图像相关 (DIC)", "en": "Digital image correlation (DIC)", "scenarios": ["tank"],
+          "descZh": "试件表面散斑图案，由子区相关求位移场，再微分为应变场。", "descEn": "Speckle-pattern subset correlation gives the displacement field, differentiated to strain.",
+          "models": [ { "name": "Correlated Solutions DIC 软件", "nameEn": "Correlated Solutions DIC software", "spec": "数字图像相关与摄影测量", "specEn": "DIC and photogrammetry", "price": "须询价", "tier": "实验级", "tierEn": "Laboratory grade" } ],
+          "kit": [ { "zh": "相机与散斑", "en": "Camera and speckle pattern" }, { "zh": "DIC 软件", "en": "DIC software" } ]
+        },
+        {
+          "zh": "高速成像", "en": "High-speed imaging", "scenarios": ["tank"],
+          "descZh": "高帧率记录瞬态过程，获得空化、破碎与砰击的时空形态。", "descEn": "High frame rates record transients such as cavitation, breaking and slamming.",
+          "models": [
+            { "name": "ELP 640fps USB 相机", "nameEn": "ELP 640fps USB camera", "spec": "640 fps，单色，全局快门", "specEn": "640 fps, mono, global shutter", "price": "£54.40", "tier": "工业件", "tierEn": "Industrial component" },
+            { "name": "Svpro USB 3.0 全局快门相机", "nameEn": "Svpro USB 3.0 global-shutter camera", "spec": "1200P@120 fps", "specEn": "1200P@120 fps", "price": "£126.99", "tier": "工业件", "tierEn": "Industrial component" }
+          ],
+          "kit": [ { "zh": "高速相机", "en": "High-speed camera" }, { "zh": "强照明与高速存储", "en": "Strong lighting and high-speed storage" } ]
+        },
+        {
+          "zh": "激光多普勒 (LDV)", "en": "Laser Doppler velocimetry (LDV)", "scenarios": ["tank"],
+          "descZh": "两束相干光形成干涉条纹，由示踪粒子散射频移求速度分量。", "descEn": "Two coherent beams form fringes; velocity component from the scattered-light frequency shift.",
+          "models": [ { "name": "Dantec Dynamics LDV", "nameEn": "Dantec Dynamics LDV", "spec": "单点高时间分辨率", "specEn": "Single-point, high time resolution", "price": "须询价", "tier": "实验级", "tierEn": "Laboratory grade" } ],
+          "kit": [ { "zh": "LDV 系统", "en": "LDV system" }, { "zh": "示踪粒子", "en": "Tracer particles" } ]
+        },
+        {
+          "zh": "水下相机与照明", "en": "Underwater camera & lighting", "scenarios": ["field"],
+          "descZh": "水下相机罩与照明用于水下成像，需防污与足够照度。", "descEn": "Underwater housings and lighting for imaging, with antifouling and sufficient illuminance.",
+          "models": [
+            { "name": "水下防水相机罩（适配 A7R3）", "nameEn": "Underwater camera housing (A7R3)", "spec": "单反机身罩", "specEn": "DSLR body housing", "price": "£446.26", "tier": "整机", "tierEn": "Complete instrument" },
+            { "name": "FitStill 60 m 防水壳", "nameEn": "FitStill 60 m waterproof case", "spec": "适配运动相机", "specEn": "For action cameras", "price": "£16.99", "tier": "元件", "tierEn": "Component" }
+          ],
+          "kit": [ { "zh": "水下相机罩", "en": "Underwater housing" }, { "zh": "水下照明", "en": "Underwater lighting" } ]
+        }
+      ]
+    }
+  ]
+}

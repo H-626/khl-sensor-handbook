@@ -92,6 +92,15 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         if path == "/api/health":
             send_json(self, {"ok": True, "version": 25, "token": get_admin_token()})
             return
+        if path == "/config.js":
+            body = "window.FIREBASE_MODE='local';window.FIREBASE_CONFIG=null;window.FIREBASE_ADMIN_EMAIL='';\n".encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/javascript; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
 
         if path in ("/", "/index.html"):
             path = "/index-zh.html"
