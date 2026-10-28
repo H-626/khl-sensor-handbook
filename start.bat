@@ -1,1 +1,7 @@
-@echo off & cd /d "%~dp0" & echo KHL preview: http://localhost:8000/?v=1 & echo Keep this window open. Press Ctrl+C to stop. & python server.py & pause
+@echo off
+cd /d "%~dp0"
+echo Starting KHL SensorHub...
+echo Keep this window open. Press Ctrl+C to stop.
+echo.
+python server.py
+pause

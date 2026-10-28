@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>KHL SensorHub · English</title>
+  <link rel="stylesheet" href="app.css?v=25" />
+</head>
+<body data-lang="en" data-mode="local">
+  <header class="navbar">
+    <div class="nav-brand">
+      <span class="brand-mark">KHL</span>
+      <span class="brand-name">SensorHub</span>
+    </div>
+    <nav class="nav-links">
+      <button data-view="home" class="active">Home</button>
+      <button data-view="products">Sensors</button>
+      <button data-view="selector">Selector</button>
+      <button data-view="library">Handbook</button>
+      <button data-view="guide">Guide</button>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-links" role="navigation" aria-label="language versions">
+        <a href="index-zh.html">中文</a>
+        <a href="index-en.html" class="active">EN</a>
+        <a href="index-both.html">对照</a>
+      </div>
+      <a class="admin-link" href="admin.html">Admin</a>
+    </div>
+  </header>
+
+  <main id="app">
+    <section id="view-home" class="view">
+      <div class="hero">
+        <div class="hero-inner">
+          <h1 id="hero-title">Sensor selection handbook for tank testing and offshore monitoring</h1>
+          <p id="hero-sub">Measurement methods, representative models and prices across 18 physical quantities, plus needs-based sensor recommendation.</p>
+          <div class="hero-cta">
+            <button class="btn-primary" data-go="selector">Start selecting</button>
+            <button class="btn-ghost" data-go="products">Browse sensors</button>
+          </div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong id="stat-qty-num">18</strong><span id="stat-qty">quantities</span></div>
+        <div class="stat"><strong id="stat-models-num">51</strong><span id="stat-models">models</span></div>
+        <div class="stat"><strong>3</strong><span id="stat-lang">language pages</span></div>
+        <div class="stat"><strong>3</strong><span id="stat-pdf">PDF exports</span></div>
+      </div>
+      <div class="section">
+        <div class="section-head">
+          <h2 id="sec-products">Sensors</h2>
+          <button class="link-btn" data-go="products" id="view-all">View all →</button>
+        </div>
+        <div id="home-products" class="card-grid"></div>
+      </div>
+      <div class="section">
+        <h2 id="sec-why">Why use it</h2>
+        <div class="feature-grid">
+          <div class="feature"><div class="feature-ico">◎</div><h3 id="f1t">Product details</h3><p id="f1d">Each quantity has principles, representative models, prices, and kits.</p></div>
+          <div class="feature"><div class="feature-ico">⌁</div><h3 id="f2t">Needs-based selection</h3><p id="f2d">Filter by scenario and requirement to get sensor recommendations and kits.</p></div>
+          <div class="feature"><div class="feature-ico">⇄</div><h3 id="f3t">Separate pages</h3><p id="f3d">Chinese, English and bilingual are three separate pages with clickable citations.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-products" class="view hidden">
+      <div class="page-head">
+        <h2 id="products-title">Sensors</h2>
+        <p id="products-sub">Browse measurement methods, models and prices by quantity.</p>
+      </div>
+      <div id="products-grid" class="card-grid"></div>
+    </section>
+
+    <section id="view-detail" class="view hidden">
+      <div class="page-head">
+        <button class="link-btn" id="detail-back">← Back to sensors</button>
+        <div id="detail-content"></div>
+      </div>
+    </section>
+
+    <section id="view-selector" class="view hidden">
+      <div class="page-head">
+        <h2 id="selector-title">Sensor selector</h2>
+        <p id="selector-sub">Choose a scenario and the quantities to measure to get recommended principles, models and kits.</p>
+      </div>
+      <div class="selector">
+        <div class="selector-step">
+          <h3 id="step-scenario">1 · Scenario</h3>
+          <div id="sel-scenarios" class="chips"></div>
+        </div>
+        <div class="selector-step">
+          <h3 id="step-quantity">2 · Quantities to measure (multi-select)</h3>
+          <div id="sel-quantities" class="chips"></div>
+        </div>
+        <div class="selector-step">
+          <h3 id="step-result">3 · Recommendations</h3>
+          <div id="sel-results"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-library" class="view hidden">
+      <div class="library-bar">
+        <div class="search-wrap">
+          <input id="search" type="search" placeholder="Search requirements / methods / sections…" autocomplete="off" />
+          <div id="search-panel" class="search-panel hidden"></div>
+        </div>
+        <div class="export-wrap">
+          <button id="export-btn" class="ghost">Export PDF ▾</button>
+          <div id="export-menu" class="export-menu hidden">
+            <button data-export="zh">Chinese PDF</button>
+            <button data-export="en">English PDF</button>
+            <button data-export="both">Bilingual PDF</button>
+          </div>
+        </div>
+      </div>
+      <div class="library-layout">
+        <aside class="sidebar">
+          <div class="sidebar-head"><span id="toc-count"></span></div>
+          <nav id="toc" class="toc"></nav>
+        </aside>
+        <main class="content" id="content"></main>
+      </div>
+    </section>
+
+    <section id="view-guide" class="view hidden">
+      <div class="page-head">
+        <h2 id="guide-title">User guide</h2>
+        <p id="guide-sub">A quick guide to using this site.</p>
+      </div>
+      <div id="guide-content"></div>
+    </section>
+  </main>
+
+  <div id="print-root"></div>
+  <div id="cite-pop" class="cite-pop hidden"></div>
+  <button id="back-top" class="back-top hidden" title="Back to top">↑</button>
+  <script src="main.js?v=25"></script>
+</body>
+</html>

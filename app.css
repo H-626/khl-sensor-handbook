@@ -50,6 +50,12 @@ body {
 .lang-switch { display: flex; border: 1px solid var(--line); border-radius: 9px; overflow: hidden; }
 .lang-switch button { border: 0; background: #fff; padding: 7px 12px; cursor: pointer; font-size: 13.5px; color: var(--muted); }
 .lang-switch button.active { background: var(--accent); color: #fff; }
+.lang-links { display: flex; border: 1px solid var(--line); border-radius: 9px; overflow: hidden; }
+.lang-links a { padding: 7px 12px; font-size: 13.5px; color: var(--muted); text-decoration: none; border-right: 1px solid var(--line); }
+.lang-links a:last-child { border-right: 0; }
+.lang-links a.active { background: var(--accent); color: #fff; }
+.admin-link { margin-left: 10px; padding: 7px 12px; font-size: 13.5px; color: var(--accent); text-decoration: none; border: 1px solid var(--accent); border-radius: 9px; }
+.admin-link:hover { background: var(--accent-soft); }
 
 /* ---------- layout ---------- */
 .view { max-width: 1200px; margin: 0 auto; padding: 26px 26px 90px; }

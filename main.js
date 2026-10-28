@@ -174,7 +174,9 @@ function buildOccurrences(refs) {
 /* ================= state & i18n ================= */
 
 let ZH = null, EN = null, SENSORS = null, TOC = null, HEADING_MAP = null, PRODUCTS = [];
-let lang = "zh";
+const APP_MODE = document.body.dataset.mode || "github";
+const APP_LANG = document.body.dataset.lang || "zh";
+let lang = APP_LANG;
 let currentView = "home";
 let currentPid = null;
 const SALT_B64 = "ZrD1TT1BG/be54Qyk0kDPQ==";
@@ -189,7 +191,7 @@ const UI = {
     heroTitle: "面向水池试验与海上监测的传感器选型手册",
     heroSub: "覆盖 18 类物理量的测量方法、代表型号与价格，以及按实验需求的传感器推荐与使用方法。",
     ctaSelector: "开始选型", ctaProducts: "浏览传感器产品",
-    statQty: "类测量量", statModels: "个代表型号", statLang: "种语言模式", statPdf: "种 PDF 导出",
+    statQty: "类测量量", statModels: "个代表型号", statLang: "个语言版本", statPdf: "种 PDF 导出",
     secProducts: "传感器产品", viewAll: "查看全部 →", viewDetail: "查看详情 →", secWhy: "为什么用它",
     f1t: "产品详情", f1d: "每个物理量都有测量原理、代表型号、参考价与配套组合。",
     f2t: "按需选型", f2d: "按场景和测量需求筛选，给出传感器推荐与搭配清单。",
@@ -216,7 +218,7 @@ const UI = {
     heroTitle: "Sensor selection handbook for tank testing and offshore monitoring",
     heroSub: "Measurement methods, representative models and prices across 18 physical quantities, plus needs-based sensor recommendation.",
     ctaSelector: "Start selecting", ctaProducts: "Browse sensors",
-    statQty: "quantities", statModels: "models", statLang: "language modes", statPdf: "PDF exports",
+    statQty: "quantities", statModels: "models", statLang: "language pages", statPdf: "PDF exports",
     secProducts: "Sensors", viewAll: "View all →", viewDetail: "View details →", secWhy: "Why use it",
     f1t: "Product details", f1d: "Each quantity has principles, representative models, prices, and kits.",
     f2t: "Needs-based selection", f2d: "Filter by scenario and requirement to get sensor recommendations and kits.",
@@ -855,24 +857,29 @@ const GUIDE = [
   },
   {
     zh: "语言切换", en: "Language",
-    zhBody: "右上角可在 中文 / English / 对照 之间切换；对照模式显示中英并排或上下对照。",
-    enBody: "Switch between Chinese / English / side-by-side bilingual in the top-right; bilingual mode shows both languages together."
+    zhBody: "中文、英文、中英对照已经拆成三个独立网页，右上角「中文 / EN / 对照」可在三个页面之间跳转。",
+    enBody: "Chinese, English and bilingual are three separate pages; use the 中文 / EN / 对照 links in the top-right to switch between them."
   },
   {
-    zh: "本地运行与分享", en: "Run & share",
-    zhBody: "双击 start.bat 启动本地预览（保持黑窗打开），访问 http://localhost:8000。也可部署到 GitHub Pages 获得公开链接分享给他人。",
-    enBody: "Double-click start.bat to start the local preview (keep the black window open) and visit http://localhost:8000. You can also deploy to GitHub Pages to get a public link to share."
+    zh: "传感器管理", en: "Sensor admin",
+    zhBody: "右上角「管理」进入后台：可以添加实验室已有的新传感器，或删除不需要的传感器。保存后刷新主页面即可生效，数据实时存在本地。",
+    enBody: "Open Admin in the top-right to add new lab sensors or remove existing ones. Changes are saved locally and appear on the main pages after a refresh."
   },
   {
-    zh: "访问与密码", en: "Access & password",
-    zhBody: "进入网站需输入管理员设定的密码；同一浏览器会话内无需重复输入。",
-    enBody: "The site requires a password set by the administrator; you will not be asked again within the same browser session."
+    zh: "本地分享", en: "Share on Teams",
+    zhBody: "双击 start.bat 启动服务（保持黑窗打开），把窗口里显示的局域网地址（形如 http://192.168.x.x:8000）发到 Teams，成员在同一网络下即可访问，无需密码。",
+    enBody: "Double-click start.bat, keep the black window open, and share the LAN address it prints (e.g. http://192.168.x.x:8000) to Teams. Members on the same network can open it without a password."
   }
 ];
 
 function renderGuide() {
   const el = document.getElementById("guide-content");
-  el.innerHTML = GUIDE.map((g, i) =>
+  const items = APP_MODE === "local" ? GUIDE : GUIDE.concat([{
+    zh: "访问与密码", en: "Access & password",
+    zhBody: "进入网站需输入管理员设定的密码；同一浏览器会话内无需重复输入。",
+    enBody: "The site requires a password set by the administrator; you will not be asked again within the same browser session."
+  }]);
+  el.innerHTML = items.map((g, i) =>
     `<div class="guide-item"><div class="guide-num">${i + 1}</div><div><h3>${esc(bi(g.zh, g.en))}</h3><p>${esc(bi(g.zhBody, g.enBody))}</p></div></div>`
   ).join("");
 }
@@ -1053,19 +1060,31 @@ document.querySelectorAll(".lang-switch button").forEach((btn) => {
 
 async function boot() {
   try {
-    if (!CRYPTO_KEY) {
-      const saved = sessionStorage.getItem("khl_key");
-      if (saved) CRYPTO_KEY = await importKeyRaw(saved);
+    let zhText, enText, sensors;
+    if (APP_MODE === "local") {
+      const [zhResp, enResp, sensorsResp] = await Promise.all([
+        fetch("KHL-Sensor.md").then((r) => { if (!r.ok) throw new Error(r.status); return r.text(); }),
+        fetch("KHL-Sensor-en.md").then((r) => { if (!r.ok) throw new Error(r.status); return r.text(); }),
+        fetch("/api/sensors").then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
+      ]);
+      zhText = zhResp;
+      enText = enResp;
+      sensors = sensorsResp;
+    } else {
+      if (!CRYPTO_KEY) {
+        const saved = sessionStorage.getItem("khl_key");
+        if (saved) CRYPTO_KEY = await importKeyRaw(saved);
+      }
+      if (!CRYPTO_KEY) throw new Error("missing key");
+      const [zhEnc, enEnc, sensorsEnc] = await Promise.all([
+        fetch("KHL-Sensor.md.enc").then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); }),
+        fetch("KHL-Sensor-en.md.enc").then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); }),
+        fetch("sensors.json.enc").then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
+      ]);
+      zhText = await decryptText(CRYPTO_KEY, zhEnc);
+      enText = await decryptText(CRYPTO_KEY, enEnc);
+      sensors = JSON.parse(await decryptText(CRYPTO_KEY, sensorsEnc));
     }
-    if (!CRYPTO_KEY) throw new Error("missing key");
-    const [zhEnc, enEnc, sensorsEnc] = await Promise.all([
-      fetch("KHL-Sensor.md.enc").then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); }),
-      fetch("KHL-Sensor-en.md.enc").then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); }),
-      fetch("sensors.json.enc").then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
-    ]);
-    const zhText = await decryptText(CRYPTO_KEY, zhEnc);
-    const enText = await decryptText(CRYPTO_KEY, enEnc);
-    const sensors = JSON.parse(await decryptText(CRYPTO_KEY, sensorsEnc));
     ZH = renderMarkdown(zhText);
     EN = renderMarkdown(enText);
     SENSORS = sensors;
@@ -1094,10 +1113,14 @@ async function boot() {
   }
 }
 
-const savedKey = sessionStorage.getItem("khl_key");
-if (sessionStorage.getItem("khl_access") === "1" && savedKey) {
-  document.getElementById("access-gate").classList.add("hidden");
-  importKeyRaw(savedKey).then((k) => { CRYPTO_KEY = k; boot(); }).catch(() => checkAccess());
+if (APP_MODE === "local") {
+  boot();
 } else {
-  checkAccess();
+  const savedKey = sessionStorage.getItem("khl_key");
+  if (sessionStorage.getItem("khl_access") === "1" && savedKey) {
+    document.getElementById("access-gate").classList.add("hidden");
+    importKeyRaw(savedKey).then((k) => { CRYPTO_KEY = k; boot(); }).catch(() => checkAccess());
+  } else {
+    checkAccess();
+  }
 }

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KHL SensorHub · 传感器管理</title>
+  <style>
+    :root { --navy:#0b1c2c; --ink:#111a23; --muted:#4d5a67; --line:#e4e8ec; --bg:#f5f7f9; --panel:#fff; --accent:#0b6bcb; --accent-soft:#eaf2fb; --ok:#0a7a5f; --bad:#c0392b; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.6 -apple-system,"Segoe UI","Microsoft YaHei",Roboto,Arial,sans-serif; }
+    header { position:sticky; top:0; background:var(--navy); color:#fff; padding:14px 26px; display:flex; align-items:center; gap:18px; z-index:10; }
+    header h1 { font-size:17px; margin:0; font-weight:800; }
+    header a { color:#9fc7ee; text-decoration:none; font-size:13px; }
+    main { max-width:980px; margin:0 auto; padding:26px; }
+    .card { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:20px; margin-bottom:20px; box-shadow:0 8px 22px rgba(11,28,44,.05); }
+    .card h2 { margin:0 0 6px; font-size:16px; }
+    .card .hint { color:var(--muted); font-size:12.5px; margin:0 0 14px; }
+    label { display:block; font-weight:600; font-size:13px; margin:12px 0 5px; }
+    input[type=text], textarea { width:100%; border:1px solid var(--line); border-radius:9px; padding:10px 12px; font:inherit; color:var(--ink); background:#fff; }
+    textarea { min-height:96px; font-family:Consolas,Menlo,monospace; font-size:12.5px; }
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:0 16px; }
+    .row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    button { border:0; border-radius:9px; padding:9px 16px; cursor:pointer; font:inherit; font-weight:600; }
+    .btn { background:var(--accent); color:#fff; }
+    .btn:hover { filter:brightness(1.06); }
+    .btn-ghost { background:#fff; border:1px solid var(--line); color:var(--muted); }
+    .btn-danger { background:#fff; border:1px solid #f0c4bf; color:var(--bad); }
+    .status { font-size:13px; margin-top:10px; min-height:18px; }
+    .status.ok { color:var(--ok); }
+    .status.err { color:var(--bad); }
+    .list-item { border:1px solid var(--line); border-radius:11px; padding:12px 14px; margin-bottom:10px; display:flex; align-items:center; gap:12px; }
+    .list-item .meta { flex:1; }
+    .list-item .name { font-weight:700; }
+    .list-item .sub { color:var(--muted); font-size:12.5px; }
+    .tag { display:inline-block; background:var(--accent-soft); color:var(--accent); border-radius:6px; padding:1px 7px; font-size:12px; margin-right:4px; }
+    .code-sample { display:block; margin-top:6px; color:var(--muted); font-size:12px; white-space:pre-wrap; font-family:Consolas,Menlo,monospace; background:#f6f8fa; border:1px solid var(--line); border-radius:8px; padding:8px 10px; }
+    details { margin-top:8px; }
+    summary { cursor:pointer; color:var(--accent); font-size:13px; }
+    @media (max-width:720px) { .grid2 { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>KHL SensorHub · 传感器管理 / Sensor Admin</h1>
+    <a href="index-zh.html">← 返回网站 / Back to site</a>
+  </header>
+
+  <main>
+    <div class="card">
+      <h2>1 · 已有传感器 / Current sensors</h2>
+      <p class="hint">点击「删除」移除该物理量及其全部原理与型号；点击「展开」查看具体内容。</p>
+      <div id="sensor-list"></div>
+    </div>
+
+    <div class="card">
+      <h2>2 · 新增传感器 / Add a sensor</h2>
+      <p class="hint">按网站现有格式填写。原理和型号可以用下面的 JSON 片段批量粘贴（先按模板复制修改）。</p>
+      <div class="grid2">
+        <div>
+          <label>物理量 ID（英文小写，如 loadcell）</label>
+          <input id="q-id" type="text" placeholder="loadcell" />
+        </div>
+        <div>
+          <label>章节号（如 2.19）</label>
+          <input id="q-no" type="text" placeholder="2.19" />
+        </div>
+        <div>
+          <label>中文名称</label>
+          <input id="q-zh" type="text" placeholder="测力传感器" />
+        </div>
+        <div>
+          <label>英文名称</label>
+          <input id="q-en" type="text" placeholder="Load cell" />
+        </div>
+      </div>
+      <label>中文简介 noteZh</label>
+      <input id="q-note-zh" type="text" placeholder="用于测量力、推力、张力等。" />
+      <label>英文简介 noteEn</label>
+      <input id="q-note-en" type="text" placeholder="For measuring force, thrust, tension, etc." />
+
+      <label>原理 JSON（principles，数组，可含多个）</label>
+      <textarea id="q-principles">[
+  {
+    "zh": "应变式测力",
+    "en": "Strain-gauge load cell",
+    "scenarios": ["tank", "field"],
+    "descZh": "弹性体受力变形，应变片桥路输出与力成正比。",
+    "descEn": "The elastic element deforms under load; the strain bridge output is proportional to force.",
+    "models": [
+      {
+        "name": "示例型号",
+        "nameEn": "Example model",
+        "spec": "0-10 kN, 0.1% F.S.",
+        "specEn": "0-10 kN, 0.1% F.S.",
+        "price": "¥0",
+        "tier": "实验室级",
+        "tierEn": "Laboratory grade"
+      }
+    ],
+    "kit": [
+      { "zh": "测力传感器", "en": "Load cell" },
+      { "zh": "采集模块", "en": "Acquisition module" }
+    ]
+  }
+]</textarea>
+      <details>
+        <summary>字段说明 / Field reference</summary>
+        <span class="code-sample">scenarios: tank(水池试验) / field(现场海试) / monitor(长期监测)
+models[].price: 以 "¥" 开头跳淘宝全球购，以 "£" 开头跳亚马逊，其他跳 Google
+kit: 配套组合（可留空数组 []）</span>
+      </details>
+
+      <div class="row" style="margin-top:16px;">
+        <button class="btn" id="add-btn">保存新增 / Save</button>
+        <button class="btn-ghost" id="reset-btn" type="button">重置表单 / Reset</button>
+      </div>
+      <div id="add-status" class="status"></div>
+    </div>
+
+    <div class="card">
+      <h2>3 · 整表编辑 / Edit raw JSON</h2>
+      <p class="hint">适合批量修改。保存前请确认 JSON 结构完整；修改错误可能导致选型页显示异常。</p>
+      <textarea id="raw-json" style="min-height:320px;"></textarea>
+      <div class="row" style="margin-top:12px;">
+        <button class="btn" id="raw-save-btn">保存整表 / Save JSON</button>
+        <button class="btn-ghost" id="raw-reload-btn" type="button">重新载入 / Reload</button>
+      </div>
+      <div id="raw-status" class="status"></div>
+    </div>
+  </main>
+
+  <script>
+    let TOKEN = "";
+    let sensors = null;
+
+    function setStatus(el, ok, msg) {
+      el.textContent = msg;
+      el.className = "status " + (ok ? "ok" : "err");
+    }
+
+    async function api(path, opts) {
+      opts = opts || {};
+      const headers = { "Content-Type": "application/json" };
+      if (TOKEN) headers["Authorization"] = "Bearer " + TOKEN;
+      const res = await fetch(path, { ...opts, headers });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || ("HTTP " + res.status));
+      return data;
+    }
+
+    function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+
+    function renderList() {
+      const box = document.getElementById("sensor-list");
+      box.innerHTML = "";
+      for (const q of sensors.quantities) {
+        const div = document.createElement("div");
+        div.className = "list-item";
+        const prCount = q.principles ? q.principles.length : 0;
+        const modelCount = q.principles ? q.principles.reduce((n, p) => n + (p.models ? p.models.length : 0), 0) : 0;
+        div.innerHTML = '<div class="meta"><div class="name">' + esc(q.id) + " · " + esc(q.zh) + " / " + esc(q.en) +
+          '</div><div class="sub">原理 ' + prCount + ' 个 · 型号 ' + modelCount + ' 个</div></div>' +
+          '<button class="btn-ghost" data-id="' + esc(q.id) + '">查看 / View</button>' +
+          '<button class="btn-danger" data-id="' + esc(q.id) + '">删除 / Delete</button>';
+        box.appendChild(div);
+      }
+      box.querySelectorAll(".btn-ghost").forEach((b) => b.addEventListener("click", () => {
+        const q = sensors.quantities.find((x) => x.id === b.dataset.id);
+        document.getElementById("raw-json").value = JSON.stringify(q, null, 2);
+        window.scrollTo({ top: document.getElementById("raw-json").getBoundingClientRect().top + window.scrollY - 120, behavior: "smooth" });
+      }));
+      box.querySelectorAll(".btn-danger").forEach((b) => b.addEventListener("click", async () => {
+        if (!confirm("确定删除 " + b.dataset.id + " 吗？此操作不可撤销。")) return;
+        sensors.quantities = sensors.quantities.filter((x) => x.id !== b.dataset.id);
+        try {
+          await api("/api/sensors", { method: "PUT", body: JSON.stringify(sensors) });
+          renderList();
+          setStatus(document.getElementById("add-status"), true, "已删除：" + b.dataset.id);
+        } catch (e) { setStatus(document.getElementById("add-status"), false, "删除失败：" + e.message); }
+      }));
+    }
+
+    async function saveFull(obj) {
+      return api("/api/sensors", { method: "PUT", body: JSON.stringify(obj) });
+    }
+
+    document.getElementById("add-btn").addEventListener("click", async () => {
+      const st = document.getElementById("add-status");
+      try {
+        const q = {
+          id: document.getElementById("q-id").value.trim(),
+          zh: document.getElementById("q-zh").value.trim(),
+          en: document.getElementById("q-en").value.trim(),
+          noteZh: document.getElementById("q-note-zh").value.trim(),
+          noteEn: document.getElementById("q-note-en").value.trim(),
+          principles: JSON.parse(document.getElementById("q-principles").value)
+        };
+        if (!q.id || !q.zh || !q.en) throw new Error("ID、中文名称、英文名称为必填");
+        await api("/api/sensors", { method: "POST", body: JSON.stringify({ quantity: q }) });
+        sensors = await api("/api/sensors");
+        renderList();
+        setStatus(st, true, "已保存。刷新主页面即可看到新传感器。");
+      } catch (e) {
+        setStatus(st, false, "保存失败：" + e.message);
+      }
+    });
+
+    document.getElementById("reset-btn").addEventListener("click", () => {
+      ["q-id", "q-zh", "q-en", "q-note-zh", "q-note-en"].forEach((id) => (document.getElementById(id).value = ""));
+    });
+
+    document.getElementById("raw-save-btn").addEventListener("click", async () => {
+      const st = document.getElementById("raw-status");
+      try {
+        const obj = JSON.parse(document.getElementById("raw-json").value);
+        await saveFull(obj);
+        sensors = obj;
+        renderList();
+        setStatus(st, true, "已保存整表。");
+      } catch (e) { setStatus(st, false, "保存失败：" + e.message); }
+    });
+
+    document.getElementById("raw-reload-btn").addEventListener("click", async () => {
+      sensors = await api("/api/sensors");
+      document.getElementById("raw-json").value = JSON.stringify(sensors, null, 2);
+      setStatus(document.getElementById("raw-status"), true, "已重新载入。");
+    });
+
+    (async function init() {
+      try {
+        const health = await (await fetch("/api/health")).json();
+        if (health.token) TOKEN = health.token;
+        sensors = await api("/api/sensors");
+        document.getElementById("raw-json").value = JSON.stringify(sensors, null, 2);
+        renderList();
+      } catch (e) {
+        setStatus(document.getElementById("add-status"), false, "加载失败：" + e.message);
+      }
+    })();
+  </script>
+</body>
+</html>

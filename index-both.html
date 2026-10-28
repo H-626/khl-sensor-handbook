@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>KHL SensorHub · 中英对照 / Bilingual</title>
+  <link rel="stylesheet" href="app.css?v=25" />
+</head>
+<body data-lang="both" data-mode="local">
+  <header class="navbar">
+    <div class="nav-brand">
+      <span class="brand-mark">KHL</span>
+      <span class="brand-name">SensorHub</span>
+    </div>
+    <nav class="nav-links">
+      <button data-view="home" class="active">首页 / Home</button>
+      <button data-view="products">传感器产品 / Sensors</button>
+      <button data-view="selector">选型推荐 / Selector</button>
+      <button data-view="library">知识库 / Handbook</button>
+      <button data-view="guide">使用手册 / Guide</button>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-links" role="navigation" aria-label="language versions">
+        <a href="index-zh.html">中文</a>
+        <a href="index-en.html">EN</a>
+        <a href="index-both.html" class="active">对照</a>
+      </div>
+      <a class="admin-link" href="admin.html">管理 / Admin</a>
+    </div>
+  </header>
+
+  <main id="app">
+    <section id="view-home" class="view">
+      <div class="hero">
+        <div class="hero-inner">
+          <h1 id="hero-title">面向水池试验与海上监测的传感器选型手册 / Sensor selection handbook for tank testing and offshore monitoring</h1>
+          <p id="hero-sub">覆盖 18 类物理量的测量方法、代表型号与价格，以及按实验需求的传感器推荐与使用方法。</p>
+          <div class="hero-cta">
+            <button class="btn-primary" data-go="selector">开始选型 / Start selecting</button>
+            <button class="btn-ghost" data-go="products">浏览传感器产品 / Browse sensors</button>
+          </div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong id="stat-qty-num">18</strong><span id="stat-qty">类测量量 / quantities</span></div>
+        <div class="stat"><strong id="stat-models-num">51</strong><span id="stat-models">个代表型号 / models</span></div>
+        <div class="stat"><strong>3</strong><span id="stat-lang">个语言版本 / language pages</span></div>
+        <div class="stat"><strong>3</strong><span id="stat-pdf">种 PDF 导出 / PDF exports</span></div>
+      </div>
+      <div class="section">
+        <div class="section-head">
+          <h2 id="sec-products">传感器产品 / Sensors</h2>
+          <button class="link-btn" data-go="products" id="view-all">查看全部 / View all →</button>
+        </div>
+        <div id="home-products" class="card-grid"></div>
+      </div>
+      <div class="section">
+        <h2 id="sec-why">为什么用它 / Why use it</h2>
+        <div class="feature-grid">
+          <div class="feature"><div class="feature-ico">◎</div><h3 id="f1t">产品详情 / Product details</h3><p id="f1d">每个物理量都有测量原理、代表型号、参考价与配套组合。</p></div>
+          <div class="feature"><div class="feature-ico">⌁</div><h3 id="f2t">按需选型 / Needs-based selection</h3><p id="f2d">按场景和测量需求筛选，给出传感器推荐与搭配清单。</p></div>
+          <div class="feature"><div class="feature-ico">⇄</div><h3 id="f3t">三个独立页面 / Separate pages</h3><p id="f3d">中文、英文、中英对照分成三个独立页面，引用可点击跳转。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-products" class="view hidden">
+      <div class="page-head">
+        <h2 id="products-title">传感器产品 / Sensors</h2>
+        <p id="products-sub">按物理量浏览测量方法、代表型号与价格，点进查看详情。</p>
+      </div>
+      <div id="products-grid" class="card-grid"></div>
+    </section>
+
+    <section id="view-detail" class="view hidden">
+      <div class="page-head">
+        <button class="link-btn" id="detail-back">← 返回产品列表 / Back to sensors</button>
+        <div id="detail-content"></div>
+      </div>
+    </section>
+
+    <section id="view-selector" class="view hidden">
+      <div class="page-head">
+        <h2 id="selector-title">选型推荐 / Sensor selector</h2>
+        <p id="selector-sub">按使用场景和要测量的物理量，给出推荐原理、代表型号与配套组合。</p>
+      </div>
+      <div class="selector">
+        <div class="selector-step">
+          <h3 id="step-scenario">1 · 选择使用场景 / Scenario</h3>
+          <div id="sel-scenarios" class="chips"></div>
+        </div>
+        <div class="selector-step">
+          <h3 id="step-quantity">2 · 选择要测量的物理量（可多选）/ Quantities to measure</h3>
+          <div id="sel-quantities" class="chips"></div>
+        </div>
+        <div class="selector-step">
+          <h3 id="step-result">3 · 推荐结果 / Recommendations</h3>
+          <div id="sel-results"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-library" class="view hidden">
+      <div class="library-bar">
+        <div class="search-wrap">
+          <input id="search" type="search" placeholder="搜索需求 / 方法 / 章节…" autocomplete="off" />
+          <div id="search-panel" class="search-panel hidden"></div>
+        </div>
+        <div class="export-wrap">
+          <button id="export-btn" class="ghost">导出 PDF / Export PDF ▾</button>
+          <div id="export-menu" class="export-menu hidden">
+            <button data-export="zh">中文 PDF</button>
+            <button data-export="en">English PDF</button>
+            <button data-export="both">中英对照 PDF</button>
+          </div>
+        </div>
+      </div>
+      <div class="library-layout">
+        <aside class="sidebar">
+          <div class="sidebar-head"><span id="toc-count"></span></div>
+          <nav id="toc" class="toc"></nav>
+        </aside>
+        <main class="content" id="content"></main>
+      </div>
+    </section>
+
+    <section id="view-guide" class="view hidden">
+      <div class="page-head">
+        <h2 id="guide-title">使用手册 / User guide</h2>
+        <p id="guide-sub">快速了解如何使用这个网站。</p>
+      </div>
+      <div id="guide-content"></div>
+    </section>
+  </main>
+
+  <div id="print-root"></div>
+  <div id="cite-pop" class="cite-pop hidden"></div>
+  <button id="back-top" class="back-top hidden" title="返回顶部 / Back to top">↑</button>
+  <script src="main.js?v=25"></script>
+</body>
+</html>

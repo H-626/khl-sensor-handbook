@@ -6,3 +6,6 @@ sensors.json
 # 本地加密工具与参数，不发布
 encrypt.mjs
 crypto-params.json
+
+# 本地管理接口令牌，不发布
+.admin_token
