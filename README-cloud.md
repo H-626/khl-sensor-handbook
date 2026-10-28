@@ -33,10 +33,10 @@
 
 然后点「Publish」。意思是：**任何人都能读传感器数据（所以网页打开就能看），但只有登录的管理员才能写（增删传感器）**。
 
-6. 回到本项目文件夹，打开 `config.js`（仓库里已经有这个文件，内容就是三个待填的字段），把第 3 步拿到的 `apiKey`、`projectId` 和数据库地址填进去。数据库地址形如：
+6. 回到本项目文件夹，打开 `config.js`（仓库里已经有这个文件，内容就是三个待填的字段），把第 3 步拿到的 `apiKey`、`projectId` 和数据库地址填进去。数据库地址**以 Firebase 控制台里 Realtime Database 顶部显示的为准**，形如：
 
 ```
-https://你的项目名-default-rtdb.firebaseio.com
+https://你的项目名-default-rtdb.europe-west1.firebasedatabase.app
 ```
 
 填好后保存。`config.js` 就是公开的 Firebase Web 配置（不是密码），真正保护数据的是上面的 Rules 和管理员登录账号，所以直接提交到仓库即可。

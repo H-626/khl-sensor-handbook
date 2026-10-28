@@ -5,5 +5,5 @@
 window.FIREBASE_CONFIG = {
   apiKey: "在这里填 Web API Key",
   projectId: "在这里填 Project ID",
-  databaseURL: "https://你的项目名-default-rtdb.firebaseio.com"
+  databaseURL: "https://你的项目名-default-rtdb.你的区域.firebasedatabase.app"
 };

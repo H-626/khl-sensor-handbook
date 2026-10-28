@@ -3,5 +3,5 @@
 window.FIREBASE_CONFIG = {
     apiKey: "AIzaSyDuZv3eSQEXbJXTLOxo1MywaeyLHXK5t3U",
     projectId: "khl-sensorhub",
-    databaseURL: "https://khl-sensorhub-default-rtdb.firebaseio.com"
+    databaseURL: "https://khl-sensorhub-default-rtdb.europe-west1.firebasedatabase.app"
 };
