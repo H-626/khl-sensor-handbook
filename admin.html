@@ -189,6 +189,7 @@ kit: 配套组合（可留空数组 []）</span>
       try {
         const q = {
           id: document.getElementById("q-id").value.trim(),
+          no: document.getElementById("q-no").value.trim() || undefined,
           zh: document.getElementById("q-zh").value.trim(),
           en: document.getElementById("q-en").value.trim(),
           noteZh: document.getElementById("q-note-zh").value.trim(),

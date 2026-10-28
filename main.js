@@ -351,12 +351,16 @@ function buildProducts() {
   const order = ["wave", "force", "pressure", "velocity", "motion", "acceleration", "strain", "displacement", "torque", "temperature", "hydrology", "meteorology", "position", "acoustic", "terrain", "corrosion", "fibre", "optical"];
   const dataMap = {};
   for (const q of SENSORS.quantities) dataMap[q.id] = q;
-  PRODUCTS = order.map((id) => {
+  const dynamicOrder = order.slice();
+  for (const id of Object.keys(dataMap)) if (!dynamicOrder.includes(id)) dynamicOrder.push(id);
+  PRODUCTS = dynamicOrder.map((id, idx) => {
     const q = dataMap[id];
-    if (q) return { id, no: DATA_NO[id], zh: q.zh, en: q.en, zhDesc: q.noteZh, enDesc: q.noteEn, hasData: true, data: q };
+    if (q) return { id, no: DATA_NO[id] || q.no || ("X." + (idx + 1)), zh: q.zh, en: q.en, zhDesc: q.noteZh, enDesc: q.noteEn, hasData: true, data: q };
     const ex = EXTRA_QUANTITIES.find((e) => e.id === id);
-    return { ...ex, hasData: false };
+    if (ex) return { ...ex, hasData: false };
+    return null;
   });
+  PRODUCTS = PRODUCTS.filter(Boolean);
 }
 
 function updateStats() {
